@@ -81,5 +81,8 @@ Untuk Fitur Donasi Buku: <br>
 - Selanjutnya, untuk fungsi pengiriman data (post), akan digunakan endpoint lain yang juga telah dikembangkan selama PTS, yaitu `https://flex-lib.domcloud.dev/donasi_buku/create_donasi_buku/`.
 - Selanjutnya, untuk fungsi penghapusan data (delete), akan digunakan endpoint lain yang juga telah dikembangkan selama PTS, yaitu `https://flex-lib.domcloud.dev/donasi_buku/delete_donasi_buku/<int:id>`.
 
+### Struktur Folder
+![./asset/struktur_folder.PNG](./asset/struktur_folder.PNG)
+
 ## Tautan Berita Acara
 [Berita Acara](https://docs.google.com/spreadsheets/d/1G-1tKHE3ZCuPg560ifwNoP7c5bZUEQPgbGDF1paXKHA/edit?usp=sharing)
