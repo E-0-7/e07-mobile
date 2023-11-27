@@ -1,5 +1,5 @@
-# Proyek Tengah Semester 
-## Membuat Situs Web menggunakan Framework Django
+# Proyek Akhir Semester
+## Membuat Aplikasi Mobile menggunakan Framework Flutter
 ## Pemrograman Berbasis Platform
 
 ## Nama-nama anggota kelompok
