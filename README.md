@@ -24,6 +24,15 @@ Dalam era digital saat ini, tantangan literasi bukan hanya sebatas aksesibilitas
 | **Request Buku:** | Thirza Ahmad Tsaqif                                                                                                                                                                               |
 | **Donasi Buku:** | Bimantoro Widyadana                                                                                                                                                                               |
 
+
+| Modul          |Definisi                                                                                                                                                                      |
+|---------------------------------------|---------------------------------------|
+| **Katalog Buku:** |  Di halaman katalog buku dapat melihat daftar buku yang ada di Flex-lib. Terdapat detail buku pada card buku seperti nama author, nama buku, dan detail lainnya.                                                                                                                                                                               |
+| **Beli Buku:**    | Pada modul Beli Buku (Pengguna perlu login) disini dapat melihat buku yang tersedia untuk dibeli. Card disini tercantum juga harga bukunya.                                                                                                                                                                          |                                                                                                                                                                   |
+| **Pinjam Buku:**  |  Dapat melihat daftar buku yang tersedia untuk dipinjam. Card pada buku akan melihat status dari buku yang pernah dipinjam.                                                                                                                                                                          |                                                                                                            
+| **Request Buku:** | Pada modul Request Buku dapat melakukan request buku. Pada halaman ini akan melihat nama buku yang direquest, deskripsi buku, tanggal request buku, dan status dari buku yang direquest.                                                                                                                                                                       |
+| **Donasi Buku:** | Pada modul Donasi Buku dapat melakukan donasi buku dengan memberikan deskripsi buku yang akan di donasikan.                                                                                                                                                                               |
+
 ## Role atau peran pengguna beserta deskripsinya (karena bisa saja lebih dari satu jenis pengguna yang mengakses aplikasi)
 - Pengguna Non-Login:
 Pengguna non-login adalah mereka yang mengunjungi aplikasi perpustakaan tanpa masuk atau membuat akun. Mereka memiliki akses terbatas hanya untuk melihat katalog buku yang tersedia dalam perpustakaan. Mereka tidak dapat menggunakan fitur-fitur lainnya.
@@ -38,6 +47,10 @@ Pengguna login adalah individu yang telah membuat akun dan masuk ke dalam aplika
   
 - Pustakawan:
 Pustakawan adalah petugas perpustakaan yang memiliki hak akses penuh ke dalam aplikasi "Flex-lib". Mereka memiliki akses penuh ke seluruh fitur-fitur aplikasi serta memiliki tanggung jawab tambahan, untuk menambahkan buku baru.
+
+## Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
+
+
 
 ## Tautan Berita Acara
 [Berita Acara](https://docs.google.com/spreadsheets/d/1G-1tKHE3ZCuPg560ifwNoP7c5bZUEQPgbGDF1paXKHA/edit?usp=sharing)
