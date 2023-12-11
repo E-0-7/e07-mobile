@@ -1,4 +1,6 @@
+import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:flutter/material.dart';
+import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const DonationPage(),
     );
   }
 }
