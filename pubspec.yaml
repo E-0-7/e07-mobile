@@ -39,6 +39,7 @@ dependencies:
   pbp_django_auth: ^0.4.0
   google_fonts: ^6.1.0
   http: ^1.1.0
+  flutter_slidable: ^1.0.0
 
 dev_dependencies:
   flutter_test:
