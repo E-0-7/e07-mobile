@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:e07_mobile/katalog_buku/katalog_buku.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:e07_mobile/katalog_buku/katalog_buku.dart';
+// Import file buku.dart
+import 'package:e07_mobile/katalog_buku/katalog_buku.dart'; // Import file book_catalog.dart
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +10,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Provider(
       create: (_) {
-        CookieRequest request = CookieRequest();
-          return request;
+        // Sesuaikan dengan kebutuhan
+        // CookieRequest request = CookieRequest();
+        // return request;
       },
       child: MaterialApp(
         title: 'Flutter App',
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
           useMaterial3: true,
         ),
-        home: BookCatalog(bookList: [],)
+        home: BookCatalog(), // Ganti dengan data buku yang sesuai
       ),
     );
   }

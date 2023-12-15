@@ -1,99 +1,30 @@
 import 'dart:convert';
+import 'package:e07_mobile/katalog_buku/models/buku.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e07_mobile/katalog_buku/models/buku.dart';
 
-class BookCatalog extends StatefulWidget {
-  final List<Buku> bookList;
+class BookCard extends StatelessWidget {
+  final Buku book;
 
-  const BookCatalog({Key? key, required this.bookList}) : super(key: key);
-
-  @override
-  _BookCatalogState createState() => _BookCatalogState();
-}
-
-class _BookCatalogState extends State<BookCatalog> {
-  int _currentIndex = 0;
+  const BookCard({Key? key, required this.book}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Katalog Buku'),
-      ),
-      body: Column(
+    return Card(
+      margin: EdgeInsets.all(8), // Ubah margin menjadi 8
+      child: Column(
         children: [
-          CarouselSlider(
-            items: widget.bookList.map((buku) {
-              return Container(
-                margin: EdgeInsets.all(8.0),
-                child: Card(
-                  // Customize card UI based on your needs
-                  child: Column(
-                    children: [
-                      Image.network(buku.fields.urlFotoMedium ?? ''),
-                      Text(buku.fields.bookTitle ?? ''),
-                      Text(buku.fields.bookAuthor),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-            options: CarouselOptions(
-              height: 300.0,
-              enableInfiniteScroll: false,
-              viewportFraction: 0.8,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
+          ListTile(
+            title: Text(book.fields.bookTitle ?? ''),
+            subtitle: Text(book.fields.bookAuthor),
+          ),
+          Container(
+            height: 100, // Ubah tinggi gambar menjadi 100
+            child: Image.network(
+              book.fields.urlFotoMedium ?? '',
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.bookList.map((buku) {
-              int index = widget.bookList.indexOf(buku);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
-                ),
-              );
-            }).toList(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the first button
-                },
-                child: Text('Button 1'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the second button
-                },
-                child: Text('Button 2'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the third button
-                },
-                child: Text('Button 3'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the fourth button
-                },
-                child: Text('Button 4'),
-              ),
-            ],
           ),
         ],
       ),
@@ -101,158 +32,94 @@ class _BookCatalogState extends State<BookCatalog> {
   }
 }
 
-void main() {
-  runApp(MyApp());
+class BookCatalog extends StatefulWidget {
+  const BookCatalog({Key? key}) : super(key: key);
+
+  @override
+  _BookCatalogState createState() => _BookCatalogState();
 }
 
-class MyApp extends StatelessWidget {
-  Future<List<Buku>> fetchData() async {
-    final response = await http.get(Uri.parse('URL_API_ANDA')); // Ganti dengan URL API Anda
+class _BookCatalogState extends State<BookCatalog> {
+  late Future<List<Buku>> books;
+
+  @override
+  void initState() {
+    super.initState();
+    books = fetchBooks();
+  }
+
+  Future<List<Buku>> fetchBooks() async {
+    final response = await http.get(
+      Uri.parse('https://flex-lib.domcloud.dev/json/'),
+    );
+
     if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      return bukuFromJson(json.encode(data));
+      return bukuFromJson(response.body);
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Failed to load books');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FutureBuilder<List<Buku>>(
-        future: fetchData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return BookCatalog(
-              bookList: snapshot.data!,
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text('Error: ${snapshot.error}'),
-              ),
-            );
-          }
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e07_mobile/katalog_buku/models/buku.dart';
-
-class BookCatalog extends StatefulWidget {
-  final List<Buku> bookList;
-
-  const BookCatalog({Key? key, required this.bookList}) : super(key: key);
-
-  @override
-  _BookCatalogState createState() => _BookCatalogState();
-}
-
-class _BookCatalogState extends State<BookCatalog> {
-  int _currentIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Katalog Buku'),
+        title: Text('Book Catalog'),
       ),
-      body: Column(
-        children: [
-          CarouselSlider(
-            items: widget.bookList.map((buku) {
-              return Container(
-                margin: EdgeInsets.all(8.0),
-                child: Card(
-                  // Customize card UI based on your needs
-                  child: Column(
-                    children: [
-                      Image.network(buku.fields.urlFotoMedium ?? ''),
-                      Text(buku.fields.bookTitle ?? ''),
-                      Text(buku.fields.bookAuthor),
-                    ],
+      body: FutureBuilder<List<Buku>>(
+        future: books,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: [
+                Expanded(
+                  child: PageView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return BookCard(book: snapshot.data![index]);
+                    },
                   ),
                 ),
-              );
-            }).toList(),
-            options: CarouselOptions(
-              height: 300.0,
-              enableInfiniteScroll: false,
-              viewportFraction: 0.8,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.bookList.map((buku) {
-              int index = widget.bookList.indexOf(buku);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add logic for the first button
+                      },
+                      child: Text('Widget 1'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add logic for the second button
+                      },
+                      child: Text('Widget 2'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add logic for the third button
+                      },
+                      child: Text('Widget 3'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add logic for the fourth button
+                      },
+                      child: Text('Widget 4'),
+                    ),
+                  ],
                 ),
-              );
-            }).toList(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the first button
-                },
-                child: Text('Button 1'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the second button
-                },
-                child: Text('Button 2'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the third button
-                },
-                child: Text('Button 3'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement your logic for the fourth button
-                },
-                child: Text('Button 4'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BookCatalog(
-        bookList: bukuFromJson(yourJsonString), // Replace with your actual JSON data
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
