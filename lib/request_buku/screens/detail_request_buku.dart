@@ -14,14 +14,14 @@ class DetailRequestBuku extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Detail Request Buku")),
       body: SingleChildScrollView(
-        child: Container(
+          child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20.0),
                 Center(
-                child:
+                  child:
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,30 +31,30 @@ class DetailRequestBuku extends StatelessWidget {
                       Text("Tahun Publikasi : ${statusRequestBuku.tahunPublikasi}", style: ThemeApp.lightTextTheme.displaySmall,),
                     ],
                   ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Deskripsi : ", style: ThemeApp.lightTextTheme.bodyMedium,),
-                      Text(statusRequestBuku.isiBuku, style: ThemeApp.lightTextTheme.bodyMedium,),
-                      const SizedBox(height: 30.0),
-                      Text("Status : ${statusRequestBuku.status}", style: ThemeApp.lightTextTheme.bodyLarge,),
-                      const SizedBox(height: 24.0),
-                      ElevatedButton(
-                        onPressed: () async {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Kembali'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
+                ),
+                const SizedBox(height: 20.0),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Deskripsi : ", style: ThemeApp.lightTextTheme.bodyMedium,),
+                    Text(statusRequestBuku.isiBuku, style: ThemeApp.lightTextTheme.bodyMedium,),
+                    const SizedBox(height: 30.0),
+                    Text("Status : ${statusRequestBuku.status}", style: ThemeApp.lightTextTheme.bodyLarge,),
+                    const SizedBox(height: 24.0),
+                    ElevatedButton(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Kembali'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
 
-        ),
+      ),
 
     );
   }

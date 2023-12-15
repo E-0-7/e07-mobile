@@ -21,180 +21,183 @@ class _RequestBukuForm extends State<RequestBukuForm> {
   String _author_buku = "";
   int _tahun_publikasi = 0;
 
-  
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
 
-  return Scaffold(
-    appBar: AppBar(
-      title: const Center(
-        child: Text(
-          'Form Tambah Item',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Form Request Buku',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto',
+            ),
           ),
         ),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.indigo,
-      foregroundColor: Colors.white,
-    ),
-  //TODO: Implement drawer
-    body: Form(
-      key: _formKey,
-      child: SingleChildScrollView(
-        child:
-        Column(
-            crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: "Judul Buku",
-                labelText: "Judul Buku",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+      //TODO: Implement drawer
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child:
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Judul Buku",
+                      labelText: "Judul Buku",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _judul_buku = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Judul Buku tidak boleh kosong!";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  _judul_buku = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return "Judul Buku tidak boleh kosong!";
-                }
-                return null;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: "Author Buku",
-                labelText: "Author Buku",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Author Buku",
+                      labelText: "Author Buku",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _author_buku = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        _author_buku = "Tidak Diketahui";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  _author_buku = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return "Engine harus ada!";
-                }
-                return null;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: "Deskripsi",
-                labelText: "Deskripsi",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                      hintText: "Deskripsi",
+                      labelText: "Deskripsi",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _deskripsi = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        _deskripsi = "Tidak Diketahui";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  _deskripsi = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return "Deskripsi tidak boleh kosong!";
-                }
-                return null;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: "Tahun Publikasi Buku",
-                labelText: "Tahun Publikasi Buku",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Tahun Publikasi Buku",
+                      labelText: "Tahun Publikasi Buku",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _tahun_publikasi = int.parse(value!);
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        _tahun_publikasi = -1;
+                      }
+                      if (int.tryParse(value!) == null) {
+                        _tahun_publikasi = -1;
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  _tahun_publikasi = int.parse(value!);
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return "Tahun Publikasi tidak boleh kosong!";
-                }
-                if (int.tryParse(value) == null) {
-                  return "Tahun Publikasi harus berupa angka!";
-                }
-                return null;
-              },
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                ),
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
 
-                    // Kirim ke Django dan tunggu respons
-                    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                    final response = await request.post(
-                        "http://127.0.0.1:8000/request_buku/create-request-buku/",
-                        // "https://thirza-ahmad-tugas.pbp.cs.ui.ac.id/create-flutter/",
-                        jsonEncode(<String, String>{
-                          'judul_buku': _judul_buku,
-                          'author': _author_buku,
-                          'deskripsi': _deskripsi,
-                          'tahun_publikasi': _tahun_publikasi.toString(),
-                          // TODO: Sesuaikan field data sesuai dengan aplikasimu
-                        }));
-                    if (response['status'] == 'success') {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                        content: Text("Produk baru berhasil disimpan!"),
-                      ));
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainRequestBuku()),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                        content:
-                        Text("Terdapat kesalahan, silakan coba lagi."),
-                      ));
-                    }
-                  }
-                },
-                child: const Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white),
+                          // Kirim ke Django dan tunggu respons
+                          // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                          final response = await request.post(
+                            // "http://127.0.0.1:8000/request_buku/create-request-buku/",
+                              "https://flex-lib-e07-tk.pbp.cs.ui.ac.id/request_buku/create-request-buku/",
+                              jsonEncode(<String, String>{
+                                'judul_buku': _judul_buku,
+                                'author': _author_buku,
+                                'deskripsi': _deskripsi,
+                                'tahun_publikasi': _tahun_publikasi.toString(),
+                                // TODO: Sesuaikan field data sesuai dengan aplikasimu
+                              }));
+                          if (response['status'] == 'success') {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Produk baru berhasil disimpan!"),
+                            ));
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => MainRequestBuku()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                            ));
+                          }
+                        }
+                      },
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ]),
+              ]),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
