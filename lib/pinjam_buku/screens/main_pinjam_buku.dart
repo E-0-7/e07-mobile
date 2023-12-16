@@ -41,6 +41,17 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
         backgroundColor: const Color(0xFF215082),
         foregroundColor: Colors.white,
         centerTitle: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset('asset/images/login_books.png'),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
       ),
       drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
