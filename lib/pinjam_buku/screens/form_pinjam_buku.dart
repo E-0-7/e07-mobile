@@ -177,7 +177,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                         // Kirim ke Django dan tunggu respons
                         // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                         final response = await request.postJson(
-                            "https://flex-lib-e07-tk.pbp.cs.ui.ac.id/pinjam_buku/create_pinjam_buku/",
+                            "https://flex-lib.domcloud.dev/pinjam_buku/create_pinjam_buku/",
                             jsonEncode(<String, String>{
                               'buku' : widget.buku.pk.toString(),
                               'durasi': _durasi.toString(),

@@ -14,7 +14,7 @@ class MainPinjamBuku extends StatefulWidget {
 
 class _MainPinjamBukuState extends State<MainPinjamBuku> {
   Future<List<GabunganPinjamBuku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib-e07-tk.pbp.cs.ui.ac.id/pinjam_buku/get_pinjam_data_ajax/');
+    var url = Uri.parse('https://flex-lib.domcloud.dev/pinjam_buku/get_pinjam_data_ajax/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

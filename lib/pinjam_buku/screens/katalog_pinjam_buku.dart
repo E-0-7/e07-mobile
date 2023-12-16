@@ -15,7 +15,7 @@ class KatalogPinjamBuku extends StatefulWidget {
 
 class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
   Future<List<Buku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib-e07-tk.pbp.cs.ui.ac.id/pinjam_buku/get_katalog_pinjam_buku/');
+    var url = Uri.parse('https://flex-lib.domcloud.dev/pinjam_buku/get_katalog_pinjam_buku/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
