@@ -2,10 +2,10 @@ import 'package:e07_mobile/authentication/login.dart';
 import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:e07_mobile/pinjam_buku/models/gabungan_pinjam_buku.dart';
 import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class MainPinjamBuku extends StatefulWidget {
   const MainPinjamBuku({Key? key}) : super(key: key);
@@ -15,26 +15,20 @@ class MainPinjamBuku extends StatefulWidget {
 }
 
 class _MainPinjamBukuState extends State<MainPinjamBuku> {
-  Future<List<GabunganPinjamBuku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib.domcloud.dev/pinjam_buku/get_pinjam_data_ajax/');
-    var response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
-
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    List<GabunganPinjamBuku> list_product = [];
-    for (var d in data) {
+  Future<List<GabunganPinjamBuku>> fetchProduct(request) async {
+    List<GabunganPinjamBuku> list_pinjam_buku = [];
+    var response = await request.get("https://flex-lib.domcloud.dev/pinjam_buku/get_pinjam_data_ajax/");
+    for (var d in response) {
       if (d != null) {
-        list_product.add(GabunganPinjamBuku.fromJson(d));
+        list_pinjam_buku.add(GabunganPinjamBuku.fromJson(d));
       }
+      print("Not null");
     }
-    return list_product;
+    return list_pinjam_buku;
   }
-
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Buku Dipinjam'),
@@ -56,7 +50,7 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
       drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
       body: FutureBuilder(
-        future: fetchProduct(),
+        future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
