@@ -163,7 +163,7 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            'Nama Peminjam: ${book.username}',
+                            'Nama Peminjam: ${userData['username']}',
                             style: const TextStyle(fontSize: 13, color:Colors.white),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
