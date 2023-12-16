@@ -1,3 +1,5 @@
+import 'package:e07_mobile/authentication/login.dart';
+import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
@@ -39,8 +41,20 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
         title: const Text('Pinjam Buku'),
         backgroundColor: const Color(0xFF215082),
         foregroundColor: Colors.white,
-        centerTitle: true, // This will center the title
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
+          ),
+        ],
       ),
+      drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
       body: FutureBuilder(
         future: fetchProduct(),
