@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/login_books.png',
+                      'asset/images/login_books.png',
                       height: 150,
                       width: 150,
                     ),
@@ -118,7 +118,8 @@ class _LoginPageState extends State<LoginPage> {
                             // Cek kredensial
                             // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                             // final response = await request.login("http://127.0.0.1:8000/auth/login_flutter/", {
-                            final response = await request.login("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/login_flutter/", {
+                            // final response = await request.login("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/login_flutter/", {
+                            final response = await request.login("https://flex-lib.domcloud.dev/auth/login_flutter/", {
                               'username': username,
                               'password': password,
                             });

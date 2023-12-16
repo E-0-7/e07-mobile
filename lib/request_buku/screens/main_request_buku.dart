@@ -65,8 +65,9 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
 
   void deleteRequestStatusBuku(request, id) async {
     try {
-      var response = await request.post("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/request_buku/delete_item/$id", {}
+      // var response = await request.post("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/request_buku/delete_item/$id", {}
         // var response = await request.post("http://127.0.0.1:8000/request_buku/delete_request_buku_flutter/$id", {}
+        var response = await request.post("https://flex-lib.domcloud.dev/request_buku/delete_request_buku_flutter/$id", {}
       );
       if (response["status"] == "success") {
         setState(() {});
@@ -80,8 +81,8 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
   Future<List<RequestStatusBuku>> fetchRequestStatusBuku(request) async {
     List<RequestStatusBuku> list_request_status_buku = [];
     // var response = await request.get("http://127.0.0.1:8000/request_buku/get_item/");
-    var response = await request.get("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/request_buku/get_item/");
-
+    // var response = await request.get("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/request_buku/get_item/");
+    var response = await request.get("https://flex-lib.domcloud.dev/request_buku/get_item/");
     for (var d in response) {
       if (d != null) {
         list_request_status_buku.add(RequestStatusBuku.fromJson(d));
@@ -101,7 +102,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Image.asset('assets/images/login_books.png'),
+                icon: Image.asset('asset/images/login_books.png'),
                 // replace with your image asset
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
@@ -170,7 +171,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                         child: Container(
                           margin: const EdgeInsets.only(left: 20),
                           child: Image.asset(
-                            'assets/images/request_buku.png',
+                            'asset/images/request_buku.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -208,7 +209,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20, left: 8, right: 8),
                       decoration: BoxDecoration(
-                        color: Colors.blue, // This is your background color
+                        color: const Color(0xFF0B1F49), // This is your background color
                         borderRadius: BorderRadius.circular(
                             10), // This makes the background corners rounded
                       ),
@@ -483,6 +484,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                           }
                         }),
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
               const SizedBox(height: 30),
@@ -493,7 +495,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Image.asset(
-                        "assets/images/login_books.png",
+                        "asset/images/login_books.png",
                         height: 100,
                         width: 100,
                       ),
@@ -528,7 +530,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
-                color: Colors.blue,
+                color: const Color(0xFF0B1F49),
                 child: Center(
                   child: Text(
                     "© 2023 Flex-lib e07 - All Rights Reserved",
