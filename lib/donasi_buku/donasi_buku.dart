@@ -17,10 +17,8 @@ class DonationPage extends StatefulWidget {
 
 class _DonationPageState extends State<DonationPage> {
   Future<List<Donation>> fetchDonations(CookieRequest request) async {
-    // final response =
-    //     await http.get(Uri.parse("http://localhost:8000/donasi_buku/get-donations/"));
     final response = await request.postJson(
-        "http://localhost:8000/donasi_buku/get-donations/",
+        "https://flex-lib.domcloud.dev/donasi_buku/get-donations/",
         jsonEncode(<String, String>{
           'place': 'holder',
         }));
