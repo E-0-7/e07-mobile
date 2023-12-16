@@ -2,8 +2,6 @@ import 'package:e07_mobile/authentication/login.dart';
 import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:e07_mobile/pinjam_buku/models/gabungan_pinjam_buku.dart';
 import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
