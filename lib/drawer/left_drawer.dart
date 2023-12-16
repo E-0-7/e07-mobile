@@ -1,3 +1,4 @@
+import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
 import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
@@ -57,7 +58,11 @@ class LeftDrawer extends StatelessWidget {
               leading: const Icon(Icons.volunteer_activism),
               title: const Text('Donasi Buku'),
               onTap: () {
-                // Ke Donasi Buku
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DonationPage(),
+                    ));
               },
             ),
             ListTile(

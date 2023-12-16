@@ -1,3 +1,5 @@
+import 'package:e07_mobile/authentication/register.dart';
+import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-
       body: Container(
           padding: const EdgeInsets.all(16.0),
           child: Card(
@@ -58,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
                       style: ThemeApp.darkTextTheme.bodyMedium,
                     ),
                     const SizedBox(height: 12.0),
-
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
@@ -68,14 +68,12 @@ class _LoginPageState extends State<LoginPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-
                       ),
                     ),
                     const SizedBox(height: 12.0),
-
                     TextField(
                       controller: _passwordController,
-                      decoration:  InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Password',
                         filled: true,
                         fillColor: Colors.white,
@@ -102,7 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
                             side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
                           ),
                           onPressed: () {
                             // Add your back function here
@@ -120,10 +119,12 @@ class _LoginPageState extends State<LoginPage> {
                             // final response = await request.login("http://127.0.0.1:8000/auth/login_flutter/", {
                             // final response = await request.login("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/login_flutter/", {
 
-                            final response = await request.login("https://flex-lib.domcloud.dev/auth/login_flutter/", {
-                              'username': username,
-                              'password': password,
-                            });
+                            final response = await request.login(
+                                "https://flex-lib.domcloud.dev/auth/login_flutter/",
+                                {
+                                  'username': username,
+                                  'password': password,
+                                });
 
                             if (request.loggedIn) {
                               String message = response['message'];
@@ -133,12 +134,15 @@ class _LoginPageState extends State<LoginPage> {
                               Future.delayed(Duration(seconds: 2), () {
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(builder: (context) => MainRequestBuku()),
+                                  MaterialPageRoute(
+                                      builder: (context) => const DonationPage()), // MainRequestPage()
                                 );
                               });
-                              showDialog(context: context,
+                              showDialog(
+                                context: context,
                                 builder: (context) => AlertDialog(
-                                  title:  Text('Login Berhasil, Selamat Datang $uname'),
+                                  title: Text(
+                                      'Login Berhasil, Selamat Datang $uname'),
                                   content: Text(message),
                                   actions: [
                                     TextButton(
@@ -155,8 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                 context: context,
                                 builder: (context) => AlertDialog(
                                   title: const Text('Login Gagal'),
-                                  content:
-                                  Text(response['message']),
+                                  content: Text(response['message']),
                                   actions: [
                                     TextButton(
                                       child: const Text('OK'),
@@ -172,32 +175,33 @@ class _LoginPageState extends State<LoginPage> {
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
                             side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
                           ),
                           child: const Text('Login'),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Add your register function here
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterPage()));
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
                             side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
                           ),
                           child: Text('Register'),
                         ),
                         const SizedBox(width: 20.0),
                       ],
                     )
-
                   ],
                 ),
-              )
-
-          )
-
-      ),
+              ))),
     );
   }
 }
