@@ -209,7 +209,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 20, left: 8, right: 8),
                       decoration: BoxDecoration(
-                        color: Colors.blue, // This is your background color
+                        color: const Color(0xFF0B1F49), // This is your background color
                         borderRadius: BorderRadius.circular(
                             10), // This makes the background corners rounded
                       ),
@@ -484,6 +484,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
                           }
                         }),
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
               const SizedBox(height: 30),
@@ -529,7 +530,7 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
-                color: Colors.blue,
+                color: const Color(0xFF0B1F49),
                 child: Center(
                   child: Text(
                     "© 2023 Flex-lib e07 - All Rights Reserved",
