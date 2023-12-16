@@ -108,7 +108,7 @@ class _DonationPageState extends State<DonationPage> {
                                   orientation == Orientation.portrait ? 2 : 4,
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 10,
-                              childAspectRatio: 2 / 3,
+                              childAspectRatio: 3 / 4,
                             ),
                             itemCount: donations.length,
                             itemBuilder: (BuildContext context, int index) {

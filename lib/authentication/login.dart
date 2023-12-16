@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
 
+Map<String, dynamic> userData = {"is_login": false, "username": ""};
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -41,6 +42,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Image.asset(
+                      'asset/images/login_books.png',
+                      height: 150,
+                      width: 150,
+                    ),
+                    const SizedBox(height: 15.0),
                     Text(
                       'Login',
                       style: ThemeApp.darkTextTheme.displayLarge,
@@ -91,25 +98,29 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SizedBox(width: 20.0),
-                        ElevatedButton(
-
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: BorderSide(color: Colors.blue),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                          ),
                           onPressed: () {
                             // Add your back function here
                             Navigator.pop(context);
                           },
                           child: Text('Back'),
                         ),
-                        ElevatedButton(
+                        OutlinedButton(
                           onPressed: () async {
                             String username = _usernameController.text;
                             String password = _passwordController.text;
 
                             // Cek kredensial
                             // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                            // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                            // gunakan URL http://10.0.2.2/
-                            final response = await request.login("http://127.0.0.1:8000/auth/login_flutter/", {
-                              // final response = await request.login("https://thirza-ahmad-tugas.pbp.cs.ui.ac.id/auth/login/", {
+                            // final response = await request.login("http://127.0.0.1:8000/auth/login_flutter/", {
+                            // final response = await request.login("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/login_flutter/", {
+
+                            final response = await request.login("https://flex-lib.domcloud.dev/auth/login_flutter/", {
                               'username': username,
                               'password': password,
                             });
@@ -117,14 +128,28 @@ class _LoginPageState extends State<LoginPage> {
                             if (request.loggedIn) {
                               String message = response['message'];
                               String uname = response['username'];
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => MainRequestBuku()),
+                              userData['is_login'] = true;
+                              userData['username'] = uname;
+                              Future.delayed(Duration(seconds: 2), () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MainRequestBuku()),
+                                );
+                              });
+                              showDialog(context: context,
+                                builder: (context) => AlertDialog(
+                                  title:  Text('Login Berhasil, Selamat Datang $uname'),
+                                  content: Text(message),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
                               );
-                              ScaffoldMessenger.of(context)
-                                ..hideCurrentSnackBar()
-                                ..showSnackBar(
-                                    SnackBar(content: Text("$message Selamat datang, $uname.")));
                             } else {
                               showDialog(
                                 context: context,
@@ -144,12 +169,22 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             }
                           },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: BorderSide(color: Colors.blue),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                          ),
                           child: const Text('Login'),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             // Add your register function here
                           },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: BorderSide(color: Colors.blue),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                          ),
                           child: Text('Register'),
                         ),
                         const SizedBox(width: 20.0),
