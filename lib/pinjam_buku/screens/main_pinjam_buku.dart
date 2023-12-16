@@ -22,7 +22,6 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
       if (d != null) {
         list_pinjam_buku.add(GabunganPinjamBuku.fromJson(d));
       }
-      print("Not null");
     }
     return list_pinjam_buku;
   }
