@@ -1,4 +1,5 @@
 import 'package:e07_mobile/authentication/register.dart';
+import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:e07_mobile/request_buku/models/request_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -120,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                             // final response = await request.login("https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/login_flutter/", {
 
                             final response = await request.login(
+                                //"http://localhost:8000/auth/login_flutter/",
                                 "https://flex-lib.domcloud.dev/auth/login_flutter/",
                                 {
                                   'username': username,
@@ -135,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const MainRequestBuku()), 
+                                      builder: (context) => const DonationPage()), 
                                 );
                               });
                               showDialog(
