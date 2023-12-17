@@ -98,7 +98,7 @@ class LeftDrawer extends StatelessWidget {
                 final response = await request.logout(
                     // "https://flex-lib-e07-tk.pbp.cs.ui.ac.id/auth/logout_flutter/"
                   "https://flex-lib.domcloud.dev/auth/logout_flutter/"
-                  // "http://127.0.0.1:8000/auth/logout_flutter/"
+                   //"http://127.0.0.1:8000/auth/logout_flutter/"
                 );
                 String message = response['message'];
                 userData['is_login'] = false;

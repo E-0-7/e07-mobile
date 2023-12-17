@@ -18,6 +18,7 @@ class DonationPage extends StatefulWidget {
 class _DonationPageState extends State<DonationPage> {
   Future<List<Donation>> fetchDonations(CookieRequest request) async {
     final response = await request.postJson(
+        //"http://localhost:8000/donasi_buku/get-donations/",
         "https://flex-lib.domcloud.dev/donasi_buku/get-donations/",
         jsonEncode(<String, String>{
           'place': 'holder',
@@ -31,6 +32,10 @@ class _DonationPageState extends State<DonationPage> {
     return donations;
   }
 
+  void onDonationDeleted(Donation donation) {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -41,7 +46,6 @@ class _DonationPageState extends State<DonationPage> {
           builder: (BuildContext context) {
             return IconButton(
               icon: Image.asset('asset/images/login_books.png'),
-              // replace with your image asset
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -103,20 +107,6 @@ class _DonationPageState extends State<DonationPage> {
                       future: fetchDonations(request),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          // return GridView.count(
-                          //   primary: false,
-                          //   scrollDirection: Axis.vertical,
-                          //   shrinkWrap: true,
-                          //   padding: const EdgeInsets.all(20),
-                          //   crossAxisSpacing: 10,
-                          //   mainAxisSpacing: 10,
-                          //   crossAxisCount:
-                          //       orientation == Orientation.portrait ? 2 : 4,
-                          //   childAspectRatio: 2 / 3,
-                          //   children: List<DonationCard>.generate(7, (index) {
-                          //     return const DonationCard(donation: null);
-                          //   }),
-                          // );
                           List<Donation> donations = snapshot.data!;
                           if (donations.isEmpty) {
                             return const Padding(
@@ -141,12 +131,16 @@ class _DonationPageState extends State<DonationPage> {
                                           : 4,
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
-                                  childAspectRatio: 3 / 4,
+                                  childAspectRatio:
+                                      orientation == Orientation.portrait
+                                          ? 9 / 16
+                                          : 2 / 3,
                                 ),
                                 itemCount: donations.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return DonationCard(
-                                      donation: donations[index]);
+                                      donation: donations[index],
+                                      onDonationDeleted: onDonationDeleted);
                                 });
                           }
                         } else if (snapshot.hasError) {

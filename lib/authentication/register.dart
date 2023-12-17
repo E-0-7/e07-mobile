@@ -96,6 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         // TODO: Change the URL to the deployment URL
                         final response = await http.post(
                             Uri.parse(
+                                //"http://localhost:8000/auth/register_flutter/"),
                                 "https://flex-lib.domcloud.dev/auth/register_flutter/"),
                             body: {'username': username, 'password': password});
 
