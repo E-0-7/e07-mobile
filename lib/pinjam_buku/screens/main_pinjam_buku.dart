@@ -1,10 +1,11 @@
-import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/pinjam_buku/models/gabungan_pinjam_buku.dart';
-import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
+import 'package:e07_mobile/pinjam_buku/widgets/card_main_pinjam_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:e07_mobile/drawer/left_drawer.dart';
+import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
 
 class MainPinjamBuku extends StatefulWidget {
   const MainPinjamBuku({Key? key}) : super(key: key);
@@ -24,9 +25,11 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
     }
     return list_pinjam_buku;
   }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Buku Dipinjam'),
@@ -108,7 +111,7 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.blue),
                           ),
-                          onPressed: () async {
+                          onPressed: () {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (context) => const KatalogPinjamBuku()),
@@ -124,82 +127,15 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                   ),
                 ),
                 SliverStaggeredGrid.countBuilder(
-                crossAxisCount: 4,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var book = snapshot.data![index];
-                  return Card(
-                    color: const Color(0xFF163869),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 2 / 3,
-                            child: Image.network(
-                              book.urlFotoLarge,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            book.bookTitle,
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            book.bookAuthor,
-                            style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            book.tahunPublikasi.toString(),
-                            style: const TextStyle(fontSize: 14, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Nama Peminjam: ${book.username}',
-                            style: const TextStyle(fontSize: 13, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Durasi (Hari): ${book.durasi.toString()} Hari',
-                            style: const TextStyle(fontSize: 13, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Nomor Telepon: ${book.nomorTelepon.toString()}',
-                            style: const TextStyle(fontSize: 13, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Alamat: ${book.alamat}',
-                            style: const TextStyle(fontSize: 13, color:Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
+                  crossAxisCount: 4,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var book = snapshot.data![index];
+                    return PinjamBukuMainCard(book: book);
+                  },
+                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
                 ),
               ],
             );
