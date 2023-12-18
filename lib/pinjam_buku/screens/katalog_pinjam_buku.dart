@@ -42,6 +42,17 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
         backgroundColor: const Color(0xFF215082),
         foregroundColor: Colors.white,
         centerTitle: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset('asset/images/login_books.png'),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.account_circle),
