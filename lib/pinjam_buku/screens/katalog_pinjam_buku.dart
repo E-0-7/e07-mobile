@@ -36,6 +36,14 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
 
   @override
   Widget build(BuildContext context) {
+    if (!userData['is_login']) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pinjam Buku'),
