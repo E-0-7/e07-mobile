@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
+import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
 
 Map<String, dynamic> userData = {"is_login": false, "username": ""};
 
