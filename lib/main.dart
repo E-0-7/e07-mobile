@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-// Import file buku.dart
-import 'package:e07_mobile/katalog_buku/katalog_buku.dart'; // Import file book_catalog.dart
+import 'package:e07_mobile/katalog_buku/user_manager.dart';
+import 'package:e07_mobile/katalog_buku/katalog_buku.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  // MyApp remains unchanged...
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) {
-        // Sesuaikan dengan kebutuhan
-        // CookieRequest request = CookieRequest();
-        // return request;
+    return FutureBuilder<String>(
+      future: UserManager().getUserStatus(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            // Setup MaterialApp...
+            home: BookCatalog(userStatus: snapshot.data ?? 'guest'),
+          );
+        } else {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
       },
-      child: MaterialApp(
-        title: 'Flutter App',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-          useMaterial3: true,
-        ),
-        home: BookCatalog(), // Ganti dengan data buku yang sesuai
-      ),
     );
   }
 }
