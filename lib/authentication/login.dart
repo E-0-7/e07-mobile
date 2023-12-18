@@ -129,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                 });
 
                             if (request.loggedIn) {
+                              Provider.of<UserStatusModel>(context, listen: false).login(username);
                               String message = response['message'];
                               String uname = response['username'];
                               userData['is_login'] = true;
