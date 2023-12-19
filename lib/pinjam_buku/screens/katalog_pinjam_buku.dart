@@ -95,7 +95,7 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         children: [
-                          TextSpan(
+                          const TextSpan(
                             text: 'Flex-Lib\nPinjam Buku\n\n',
                             style: TextStyle(
                               color: Colors.white,
@@ -105,7 +105,7 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                           ),
                           TextSpan(
                             text: 'Selamat datang ${userData['username']}, silakan pinjam buku.\nDi Flex-Lib, kamu dapat meminjam buku. Kami akan memproses peminjaman buku kamu dan memberikan buku tersebut jika tersedia.',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
