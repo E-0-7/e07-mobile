@@ -10,7 +10,7 @@ class DonationDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const double imageScale = 4.0;
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Request Buku")),
+      appBar: AppBar(title: const Text("Detail Donasi Buku")),
       body: SingleChildScrollView(
           child: Container(
         padding: const EdgeInsets.all(16.0),
