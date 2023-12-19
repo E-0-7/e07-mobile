@@ -1,6 +1,7 @@
 import 'package:e07_mobile/donasi_buku/models/donation.dart';
 import 'package:e07_mobile/donasi_buku/widgets/donation_card.dart';
 import 'package:e07_mobile/donasi_buku/widgets/donation_card_admin.dart';
+import 'package:e07_mobile/donasi_buku/widgets/donation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
@@ -21,6 +22,8 @@ class DonationCardGrid extends StatefulWidget {
 }
 
 class _DonationCardGridState extends State<DonationCardGrid> {
+  late List<Donation> displayedDonations;
+
   void onDonationStatusChanged(Donation donation, String status) {
     setState(() {
       widget.donations
@@ -36,28 +39,64 @@ class _DonationCardGridState extends State<DonationCardGrid> {
     });
   }
 
+  void search(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        displayedDonations = List<Donation>.from(widget.donations);
+      });
+    } else {
+      setState(() {
+        displayedDonations = widget.donations
+            .where((element) => element.fields.title
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+            .toList();
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    displayedDonations = List<Donation>.from(widget.donations);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Donation> donations = widget.donations;
     final int columns = widget.columns;
     final bool isAdmin = widget.isAdmin;
-    int rows = (donations.length / columns).ceil();
+    int rows = (displayedDonations.length / columns).ceil();
 
-    return LayoutGrid(
-      columnSizes: columns == 2 ? [1.fr, 1.fr] : [1.fr, 1.fr, 1.fr, 1.fr],
-      rowSizes: List.filled(rows, auto),
-      columnGap: 10,
-      rowGap: 10,
-      children: isAdmin
-          ? donations
-              .map((donation) => DonationCardAdmin(
-                  donation: donation,
-                  onDonationStatusChanged: onDonationStatusChanged))
-              .toList()
-          : donations
-              .map((donation) => DonationCard(
-                  donation: donation, onDonationDeleted: onDonationDeleted))
-              .toList(),
-    );
+    return Column(children: [
+      DonationSearchBar(onValueChanged: search),
+      const SizedBox(height: 10),
+      rows != 0
+          ? LayoutGrid(
+              columnSizes:
+                  columns == 2 ? [1.fr, 1.fr] : [1.fr, 1.fr, 1.fr, 1.fr],
+              rowSizes: List.filled(rows, auto),
+              columnGap: 10,
+              rowGap: 10,
+              children: isAdmin
+                  ? displayedDonations
+                      .map((donation) => DonationCardAdmin(
+                          donation: donation,
+                          onDonationStatusChanged: onDonationStatusChanged))
+                      .toList()
+                  : displayedDonations
+                      .map((donation) => DonationCard(
+                          donation: donation,
+                          onDonationDeleted: onDonationDeleted))
+                      .toList(),
+            )
+          : const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Text(
+                "Buku tidak ditemukan",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ))
+    ]);
   }
 }
