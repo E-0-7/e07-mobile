@@ -10,7 +10,6 @@ class DonationCardGrid extends StatefulWidget {
   final int columns;
   final bool isAdmin;
 
-  // bruh
   const DonationCardGrid(
       {super.key,
       required this.donations,
@@ -24,15 +23,6 @@ class DonationCardGrid extends StatefulWidget {
 
 class _DonationCardGridState extends State<DonationCardGrid> {
   late List<Donation> displayedDonations;
-
-  void onDonationStatusChanged(Donation donation, String status) {
-    setState(() {
-      widget.donations
-          .firstWhere((element) => element.pk == donation.pk)
-          .fields
-          .status = status;
-    });
-  }
 
   void onDonationDeleted(Donation donation) {
     setState(() {
@@ -82,8 +72,8 @@ class _DonationCardGridState extends State<DonationCardGrid> {
               children: isAdmin
                   ? displayedDonations
                       .map((donation) => DonationCardAdmin(
-                          donation: donation,
-                          onDonationStatusChanged: onDonationStatusChanged))
+                            donation: donation,
+                          ))
                       .toList()
                   : displayedDonations
                       .map((donation) => DonationCard(

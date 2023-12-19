@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e07_mobile/donasi_buku/screens/accept_donation_form.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:e07_mobile/donasi_buku/screens/donation_detail.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
@@ -10,12 +11,11 @@ import 'package:provider/provider.dart';
 
 class DonationCardAdmin extends StatefulWidget {
   final Donation donation;
-  final Function(Donation, String) onDonationStatusChanged;
 
-  const DonationCardAdmin(
-      {super.key,
-      required this.donation,
-      required this.onDonationStatusChanged});
+  const DonationCardAdmin({
+    super.key,
+    required this.donation,
+  });
 
   @override
   State<DonationCardAdmin> createState() => _DonationCardAdminState();
@@ -23,18 +23,37 @@ class DonationCardAdmin extends StatefulWidget {
 
 class _DonationCardAdminState extends State<DonationCardAdmin> {
   late bool _isPending;
+  late CookieRequest request;
 
   void setIsPending(String status) {
     setState(() {
       _isPending = status == "PENDING";
+      widget.donation.fields.status = status;
     });
-    widget.onDonationStatusChanged(widget.donation, status);
+  }
+
+  Future<void> onDonationApproved() async {
+    final response = await request.postJson(
+        "https://flex-lib.domcloud.dev/donasi_buku/approve-flutter/",
+        //"http://localhost:8000/donasi_buku/approve-flutter/",
+        jsonEncode(<String, String>{'id': widget.donation.pk.toString()}));
+    if (response['status'] == 'success') {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Donasi berhasil diterima!"),
+      ));
+      setIsPending("DITERIMA");
+    } else {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Terdapat kesalahan, silakan coba lagi.")));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     const double imageScale = 4;
-    final request = context.watch<CookieRequest>();
+    request = context.watch<CookieRequest>();
     final Donation donation = widget.donation;
     _isPending = donation.fields.status == "PENDING";
 
@@ -121,27 +140,14 @@ class _DonationCardAdminState extends State<DonationCardAdmin> {
                           children: [
                             ElevatedButton(
                                 onPressed: () async {
-                                  final response = await request.postJson(
-                                      "https://flex-lib.domcloud.dev/donasi_buku/approve-flutter/",
-                                      //"http://localhost:8000/donasi_buku/approve-flutter/",
-                                      jsonEncode(<String, String>{
-                                        'id': donation.pk.toString()
-                                      }));
-                                  if (response['status'] == 'success') {
-                                    if (!context.mounted) return;
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text("Donasi berhasil diterima!"),
-                                    ));
-                                    setIsPending("DITERIMA");
-                                  } else {
-                                    if (!context.mounted) return;
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                "Terdapat kesalahan, silakan coba lagi.")));
-                                  }
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AcceptDonationForm(
+                                                  donation: donation,
+                                                  onDonationStatusChanged:
+                                                      onDonationApproved)));
                                 },
                                 child: const Text("TERIMA")),
                             ElevatedButton(
