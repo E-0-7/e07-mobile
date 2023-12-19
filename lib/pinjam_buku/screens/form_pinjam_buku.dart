@@ -177,7 +177,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          final response = await request.postJson(
+                          final response = await request.post(
                               "https://flex-lib.domcloud.dev/pinjam_buku/create_pinjam_buku/",
                               jsonEncode(<String, String>{
                                 'buku' : widget.buku.pk.toString(),
