@@ -86,3 +86,9 @@ Untuk Fitur Donasi Buku: <br>
 
 ## Tautan Berita Acara
 [Berita Acara](https://docs.google.com/spreadsheets/d/1G-1tKHE3ZCuPg560ifwNoP7c5bZUEQPgbGDF1paXKHA/edit?usp=sharing)
+
+## Badge App Center
+[![Build status](https://build.appcenter.ms/v0.1/apps/3d8b0ec2-17e2-4adf-9f0c-f6879fbec4eb/branches/main/badge)](https://appcenter.ms)
+
+## Link Distribusi Aplikasi 
+[Flex-Lib](https://install.appcenter.ms/orgs/e07/apps/flex-lib-app/distribution_groups/public)
