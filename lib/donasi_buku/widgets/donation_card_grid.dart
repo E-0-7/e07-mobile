@@ -10,6 +10,7 @@ class DonationCardGrid extends StatefulWidget {
   final int columns;
   final bool isAdmin;
 
+  // bruh
   const DonationCardGrid(
       {super.key,
       required this.donations,
