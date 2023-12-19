@@ -33,7 +33,7 @@ class PinjamBukuKatalogCard extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              book.fields.bookAuthor ?? "Tidak Ada Penulis",
+              book.fields.bookAuthor,
               style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -47,7 +47,7 @@ class PinjamBukuKatalogCard extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              book.fields.penerbit ?? "Tidak Ada Penerbit",
+              book.fields.penerbit,
               style: const TextStyle(fontSize: 14, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
