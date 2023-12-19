@@ -36,6 +36,7 @@ class _DonationCardGridState extends State<DonationCardGrid> {
   void onDonationDeleted(Donation donation) {
     setState(() {
       widget.donations.removeWhere((element) => element.pk == donation.pk);
+      displayedDonations.removeWhere((element) => element.pk == donation.pk);
     });
   }
 
