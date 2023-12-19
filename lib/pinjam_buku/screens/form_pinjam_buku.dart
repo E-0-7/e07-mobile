@@ -25,7 +25,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      resizeToAvoidBottomInset: true, // Menyesuaikan ukuran Scaffold agar tidak tertutup oleh keyboard
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Form Pinjam Buku'),
         backgroundColor: const Color(0xFF215082),
@@ -33,9 +33,9 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
         centerTitle: true,
       ),
       backgroundColor: const Color(0xFF0B1F49),
-      body: SingleChildScrollView( // Memastikan keseluruhan halaman dapat discroll
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom), // Menambahkan padding di bagian bawah sesuai dengan ukuran keyboard
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
             key: _formKey,
             child: Column(
@@ -76,7 +76,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                       hintText: "Durasi (Hari)",
                       labelText: "Durasi",
                       errorStyle: TextStyle(
-                        color: Colors.red[400], // Light red color for error text
+                        color: Colors.red[400],
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -110,7 +110,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                       hintText: "08XXXXXXXXXX",
                       labelText: "Nomor Telepon",
                       errorStyle: TextStyle(
-                        color: Colors.red[400], // Light red color for error text
+                        color: Colors.red[400],
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -144,7 +144,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                       hintText: "Alamat",
                       labelText: "Alamat",
                       errorStyle: TextStyle(
-                        color: Colors.red[400], // Light red color for error text
+                        color: Colors.red[400],
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -177,16 +177,13 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          // Kirim ke Django dan tunggu respons
-                          // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                          final response = await request.postJson(
+                          final response = await request.post(
                               "https://flex-lib.domcloud.dev/pinjam_buku/create_pinjam_buku/",
                               jsonEncode(<String, String>{
                                 'buku' : widget.buku.pk.toString(),
                                 'durasi': _durasi.toString(),
                                 'nomor_telepon': _nomorTelepon.toString(),
                                 'alamat': _alamat,
-                                // TODO: Sesuaikan field data sesuai dengan aplikasimu
                               }));
                           if (response['status'] == 'success') {
                             Navigator.pushReplacement(

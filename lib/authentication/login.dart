@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
+import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
+
+import '../katalog_buku/models/userstatus.dart';
 
 Map<String, dynamic> userData = {"is_login": false, "username": ""};
 
@@ -19,17 +22,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isPasswordVisible = false;
+  void togglePasswordVisibility() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
 
-    bool isPasswordVisible = false;
-    void togglePasswordVisibility() {
-      setState(() {
-        isPasswordVisible = !isPasswordVisible;
-      });
-    }
 
     return Scaffold(
       body: Container(
@@ -129,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                 });
 
                             if (request.loggedIn) {
+                              Provider.of<UserStatusModel>(context, listen: false).login(username);
                               String message = response['message'];
                               String uname = response['username'];
                               userData['is_login'] = true;
