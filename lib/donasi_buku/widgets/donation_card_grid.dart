@@ -10,7 +10,6 @@ class DonationCardGrid extends StatefulWidget {
   final int columns;
   final bool isAdmin;
 
-  // bruh
   const DonationCardGrid(
       {super.key,
       required this.donations,
@@ -24,15 +23,6 @@ class DonationCardGrid extends StatefulWidget {
 
 class _DonationCardGridState extends State<DonationCardGrid> {
   late List<Donation> displayedDonations;
-
-  void onDonationStatusChanged(Donation donation, String status) {
-    setState(() {
-      widget.donations
-          .firstWhere((element) => element.pk == donation.pk)
-          .fields
-          .status = status;
-    });
-  }
 
   void onDonationDeleted(Donation donation) {
     setState(() {
@@ -72,7 +62,7 @@ class _DonationCardGridState extends State<DonationCardGrid> {
     return Column(children: [
       DonationSearchBar(onValueChanged: search),
       const SizedBox(height: 10),
-      rows != 0
+      displayedDonations.isNotEmpty
           ? LayoutGrid(
               columnSizes:
                   columns == 2 ? [1.fr, 1.fr] : [1.fr, 1.fr, 1.fr, 1.fr],
@@ -82,8 +72,8 @@ class _DonationCardGridState extends State<DonationCardGrid> {
               children: isAdmin
                   ? displayedDonations
                       .map((donation) => DonationCardAdmin(
-                          donation: donation,
-                          onDonationStatusChanged: onDonationStatusChanged))
+                            donation: donation,
+                          ))
                       .toList()
                   : displayedDonations
                       .map((donation) => DonationCard(
@@ -91,14 +81,23 @@ class _DonationCardGridState extends State<DonationCardGrid> {
                           onDonationDeleted: onDonationDeleted))
                       .toList(),
             )
-          : const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Buku tidak ditemukan",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ))
+          : widget.donations.isNotEmpty
+              ? const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Buku tidak ditemukan",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ))
+              : const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Anda belum ada donasi buku",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ))
     ]);
   }
 }

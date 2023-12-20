@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:e07_mobile/donasi_buku/models/donation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class AcceptDonationForm extends StatefulWidget {
   final Donation donation;
-  final Function(Donation) onDonationStatusChanged;
+  final Future<void> Function() onDonationStatusChanged;
   const AcceptDonationForm(
       {super.key,
       required this.donation,
@@ -31,7 +30,7 @@ class _AcceptDonationFormState extends State<AcceptDonationForm> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Donasi Buku Baru"),
+        title: const Text("Lengkapi Informasi Buku"),
       ),
       body: Form(
         key: _formKey,
@@ -136,7 +135,7 @@ class _AcceptDonationFormState extends State<AcceptDonationForm> {
                                 : noImageUrl;
                         final response = await request.postJson(
                             //"http://localhost:8000/donasi_buku/donate-flutter/",
-                            "https://flex-lib.domcloud.dev/donasi_buku/donate-flutter/",
+                            "https://flex-lib.domcloud.dev/tambah-buku-flutter/",
                             jsonEncode(<String, String>{
                               'isbn': _isbn,
                               'book_title': widget.donation.fields.title,
@@ -150,17 +149,14 @@ class _AcceptDonationFormState extends State<AcceptDonationForm> {
                               'book_price': _price.toString(),
                             }));
                         if (response['status'] == 'success') {
+                          await widget.onDonationStatusChanged();
                           if (!context.mounted) return;
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
                             content: Text("Buku berhasil diterima!"),
                           ));
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const DonationPage()));
+                          Navigator.pop(context);
                           _formKey.currentState!.reset();
-                          widget.onDonationStatusChanged(widget.donation);
                         } else {
                           if (!context.mounted) return;
                           ScaffoldMessenger.of(context).showSnackBar(
