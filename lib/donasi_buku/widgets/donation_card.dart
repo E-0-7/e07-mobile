@@ -119,9 +119,11 @@ class DonationCard extends StatelessWidget {
                                             "Terdapat kesalahan, silakan coba lagi.")));
                               }
                             },
-                            child: const Text("Cancel Donation"),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 4.0),
+                              child: Text("Cancel Donation", textAlign: TextAlign.center),
                           ),
-                        )
+                        ))
                       : const SizedBox(height: 0.0),
                   const SizedBox(height: 12.0),
                   Center(
