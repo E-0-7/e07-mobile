@@ -97,6 +97,15 @@ class _MainRequestBukuState extends State<MainRequestBuku> {
     final request = context.watch<CookieRequest>();
     final TextEditingController _controller = TextEditingController();
 
+    if (!userData['is_login']) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      });
+    }
+
     return Scaffold(
         appBar: AppBar(
           leading: Builder(
