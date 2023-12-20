@@ -11,6 +11,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:e07_mobile/beli_buku/screens/beli_buku_katalog.dart';
 
 class BookCatalog extends StatefulWidget {
   const BookCatalog({Key? key}) : super(key: key);
@@ -255,6 +256,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -270,6 +274,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -285,6 +292,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -292,8 +302,17 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
           child: const Text('Pinjam Buku')),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BeliBukuKatalog(),
+                ));
+          },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -306,6 +325,8 @@ class _BookCatalogState extends State<BookCatalog> {
       primary: false,
       padding: const EdgeInsets.all(20),
       crossAxisCount: 2,
+      mainAxisSpacing: 20, // Jarak vertikal antara tombol
+      crossAxisSpacing: 20,
       shrinkWrap: true,
       children: buttons,
     );
@@ -322,6 +343,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -337,6 +361,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -352,6 +379,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -359,8 +389,17 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
           child: const Text('Pinjam Buku')),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BeliBukuKatalog(),
+                ));
+          },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -376,6 +415,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -388,6 +430,8 @@ class _BookCatalogState extends State<BookCatalog> {
       primary: false,
       padding: const EdgeInsets.all(20),
       crossAxisCount: 2,
+      mainAxisSpacing: 20, // Jarak vertikal antara tombol
+      crossAxisSpacing: 20,
       shrinkWrap: true,
       children: buttons,
     );
