@@ -8,8 +8,6 @@ import 'package:e07_mobile/katalog_buku/models/buku.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/authentication/login.dart';
-import 'package:e07_mobile/drawer/left_drawer.dart';
-import 'dart:convert';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +20,7 @@ class BookCatalog extends StatefulWidget {
 
 class _BookCatalogState extends State<BookCatalog> {
   late Future<List<Buku>> books;
-  late CookieRequest request; 
+  late CookieRequest request;
 
   @override
   void initState() {
@@ -62,8 +60,7 @@ class _BookCatalogState extends State<BookCatalog> {
           builder: (BuildContext context) {
             return IconButton(
               icon: Image.asset('asset/images/login_books.png'),
-              onPressed: () {
-              },
+              onPressed: () {},
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
           },
@@ -244,38 +241,64 @@ class _BookCatalogState extends State<BookCatalog> {
   }
 
   Widget _buildLoggedInButtons() {
-      List<Widget> buttons = [
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MainRequestBuku(),
-                    ));},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DonationPage(),
-                    ));}, style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ),child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => KatalogPinjamBuku(),
-                    ));},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Beli Buku')),
-      ];
+    List<Widget> buttons = [
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MainRequestBuku(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Request Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DonationPage(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Donasi Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const KatalogPinjamBuku(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Pinjam Buku')),
+      ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Beli Buku')),
+    ];
 
-      return GridView.count(
+    return GridView.count(
       primary: false,
       padding: const EdgeInsets.all(20),
       crossAxisCount: 2,
@@ -286,42 +309,75 @@ class _BookCatalogState extends State<BookCatalog> {
 
   Widget _buildLibrarianButtons() {
     List<Widget> buttons = [
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MainRequestBuku(),
-                    ));},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DonationPage(),
-                    ));}, style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ),child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => KatalogPinjamBuku(),
-                    ));},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Beli Buku')),
-        ElevatedButton(onPressed: () {Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FormTambahBuku(),
-                    ));},style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
-      ), child: Text('Tambah Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MainRequestBuku(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Request Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DonationPage(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Donasi Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const KatalogPinjamBuku(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Pinjam Buku')),
+      ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Beli Buku')),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FormTambahBuku(),
+                ));
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+          ),
+          child: const Text('Tambah Buku')),
     ];
 
     return GridView.count(
