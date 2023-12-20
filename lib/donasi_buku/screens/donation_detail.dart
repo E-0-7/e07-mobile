@@ -10,7 +10,10 @@ class DonationDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const double imageScale = 4.0;
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Request Buku")),
+      appBar: AppBar(
+          title: Center(
+              child: Text(donation.fields.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold)))),
       body: SingleChildScrollView(
           child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -30,21 +33,6 @@ class DonationDetailPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height / imageScale,
                   ),
             const SizedBox(height: 20.0),
-            ListTile(
-              title: Text(
-                "Judul",
-                style: GoogleFonts.openSans(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                donation.fields.title,
-                style: GoogleFonts.openSans(
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
             ListTile(
               title: Text(
                 "Penulis",
@@ -70,6 +58,21 @@ class DonationDetailPage extends StatelessWidget {
               ),
               subtitle: Text(
                 donation.fields.year.toString(),
+                style: GoogleFonts.openSans(
+                  fontSize: 14.0,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Donatur",
+                style: GoogleFonts.openSans(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                donation.fields.donator,
                 style: GoogleFonts.openSans(
                   fontSize: 14.0,
                 ),
