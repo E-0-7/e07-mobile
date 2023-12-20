@@ -1,50 +1,39 @@
-import 'package:e07_mobile/beli_buku/screens/BeliBukuMainPage.dart';
+import 'package:e07_mobile/beli_buku/screens/beli_buku_katalog.dart';
+import 'package:e07_mobile/beli_buku/widgets/main_card.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:e07_mobile/katalog_buku/models/buku.dart';
-import 'package:e07_mobile/beli_buku/widgets/CatalogCard.dart';
-import 'package:e07_mobile/authentication/login.dart';
-import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:e07_mobile/beli_buku/models/beli_buku_all.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:e07_mobile/drawer/left_drawer.dart';
 
-class BeliBukuKatalog extends StatefulWidget {
-  const BeliBukuKatalog({Key? key}) : super(key: key);
+class BeliBukuMainPage extends StatefulWidget {
+  const BeliBukuMainPage({Key? key}) : super(key: key);
 
   @override
-  _BeliBukuKatalogState createState() => _BeliBukuKatalogState();
+  State<BeliBukuMainPage> createState() => _BeliBukuMainPageState();
 }
 
-class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
-  Future<List<Buku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib.domcloud.dev/json/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
-
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    List<Buku> list_product = [];
-    for (var d in data) {
+class _BeliBukuMainPageState extends State<BeliBukuMainPage> {
+  Future<List<BeliBukuAll>> fetchProduct(request) async {
+    List<BeliBukuAll> listBeliBuku = [];
+    var response = await request
+        .get("https://flex-lib.domcloud.dev/beli_buku/get_beli_data_ajax/");
+    for (var d in response) {
       if (d != null) {
-        list_product.add(Buku.fromJson(d));
+        listBeliBuku.add(BeliBukuAll.fromJson(d));
       }
     }
-    return list_product;
+    return listBeliBuku;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!userData['is_login']) {
-      Future.delayed(Duration.zero, () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-        );
-      });
-    }
+    final request = context.watch<CookieRequest>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Beli Buku'),
+        title: const Text('Histori Pembelian Buku'),
         backgroundColor: const Color(0xFF215082),
         foregroundColor: Colors.white,
         centerTitle: true,
@@ -59,22 +48,11 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
             );
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            },
-          ),
-        ],
       ),
       drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
       body: FutureBuilder(
-        future: fetchProduct(),
+        future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -93,10 +71,10 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
                     padding: const EdgeInsets.all(16.0),
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: TextSpan(
+                      text: const TextSpan(
                         children: [
-                          const TextSpan(
-                            text: 'Flex-Lib\nBeli Buku\n\n',
+                          TextSpan(
+                            text: 'Flex-Lib\nList Pembelian Buku\n\n',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -104,8 +82,9 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Selamat datang ${userData['username']}.\nDi Flex-Lib, kamu dapat membeli buku yang tersedia di katalog kami.',
-                            style: const TextStyle(
+                            text:
+                                'Berikut adalah daftar buku yang telah dibeli, terima kasih telah mempercayakan untuk membeli Buku di Flex-lib!',
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
@@ -117,13 +96,14 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 10.0),
                     color: const Color(0xFF163869),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Daftar Buku',
+                          'Histori Pembelian Buku',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,
@@ -132,16 +112,19 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
                           ),
                           onPressed: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const BeliBukuMainPage()),
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const BeliBukuKatalog()),
                             );
                           },
                           child: const Text(
-                            "Histori Pembelian Buku",
+                            "Beli Buku",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -154,9 +137,10 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = snapshot.data![index];
-                    return CatalogCardBuy(book: book);
+                    return MainCard(book: book);
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(2),
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),

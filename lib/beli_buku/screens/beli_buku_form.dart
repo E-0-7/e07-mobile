@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'package:e07_mobile/beli_buku/screens/BeliBukuMainPage.dart';
+import 'package:e07_mobile/beli_buku/screens/beli_buku_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:e07_mobile/katalog_buku/models/buku.dart';
-
 
 class FormBeliBuku extends StatefulWidget {
   final Buku buku;
@@ -12,7 +11,7 @@ class FormBeliBuku extends StatefulWidget {
   const FormBeliBuku({Key? key, required this.buku}) : super(key: key);
 
   @override
-  _FormBeliBukuState createState() => _FormBeliBukuState();
+  State<FormBeliBuku> createState() => _FormBeliBukuState();
 }
 
 class _FormBeliBukuState extends State<FormBeliBuku> {
@@ -43,7 +42,8 @@ class _FormBeliBukuState extends State<FormBeliBuku> {
       backgroundColor: const Color(0xFF0B1F49),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
             key: _formKey,
             child: Column(
@@ -51,7 +51,7 @@ class _FormBeliBukuState extends State<FormBeliBuku> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 5),
-                Container(
+                SizedBox(
                   width: 200,
                   height: 300,
                   child: Image.network(
@@ -62,13 +62,19 @@ class _FormBeliBukuState extends State<FormBeliBuku> {
                 const SizedBox(height: 5),
                 Text(
                   widget.buku.fields.bookTitle.toString(),
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 5),
                 Text(
                   widget.buku.fields.bookAuthor.toString(),
-                  style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 5),
@@ -215,22 +221,26 @@ class _FormBeliBukuState extends State<FormBeliBuku> {
                           final response = await request.post(
                               "https://flex-lib.domcloud.dev/beli_buku/create_beli_buku/",
                               jsonEncode(<String, String>{
-                                'buku' : widget.buku.pk.toString(),
+                                'buku': widget.buku.pk.toString(),
                                 'jumlah': _jumlah.toString(),
                                 'nomor_telepon': _nomorTelepon.toString(),
                                 'alamat': _alamat,
                                 'metode_pembayaran': _selectedPaymentMethod,
                               }));
                           if (response['status'] == 'success') {
+                            if (!context.mounted) return;
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const BeliBukuMainPage()),
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const BeliBukuMainPage()),
                             );
                           } else {
+                            if (!context.mounted) return;
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
-                              content:
-                              Text("Terdapat kesalahan, silakan coba lagi."),
+                              content: Text(
+                                  "Terdapat kesalahan, silakan coba lagi."),
                             ));
                           }
                         }

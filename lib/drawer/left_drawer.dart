@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:e07_mobile/request_buku/screens/about_us.dart';
+import 'package:e07_mobile/beli_buku/screens/beli_buku_katalog.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -72,7 +73,11 @@ class LeftDrawer extends StatelessWidget {
           leading: const Icon(Icons.shopping_cart),
           title: const Text('Beli Buku'),
           onTap: () {
-            // Ke Keranjang
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BeliBukuKatalog(),
+                ));
           },
         ),
         ListTile(

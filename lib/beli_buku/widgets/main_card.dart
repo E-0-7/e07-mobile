@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e07_mobile/beli_buku/models/BeliBukuAll.dart';
+import 'package:e07_mobile/beli_buku/models/beli_buku_all.dart';
 
 class MainCard extends StatelessWidget {
   final BeliBukuAll book;
@@ -26,49 +26,55 @@ class MainCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               book.bookTitle,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               book.bookAuthor,
-              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color:Colors.white),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               book.tahunPublikasi.toString(),
-              style: const TextStyle(fontSize: 14, color:Colors.white),
+              style: const TextStyle(fontSize: 14, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               'Nama Pembeli: ${book.username}',
-              style: const TextStyle(fontSize: 13, color:Colors.white),
+              style: const TextStyle(fontSize: 13, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               'Jumlah Buku: ${book.jumlah.toString()} Buah',
-              style: const TextStyle(fontSize: 13, color:Colors.white),
+              style: const TextStyle(fontSize: 13, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               'Nomor Telepon: ${book.nomorTelepon.toString()}',
-              style: const TextStyle(fontSize: 13, color:Colors.white),
+              style: const TextStyle(fontSize: 13, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               'Alamat: ${book.alamat}',
-              style: const TextStyle(fontSize: 13, color:Colors.white),
+              style: const TextStyle(fontSize: 13, color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/katalog_buku/models/buku.dart';
-import 'package:e07_mobile/beli_buku/screens/BeliBukuForm.dart';
+import 'package:e07_mobile/beli_buku/screens/beli_buku_form.dart';
 
 class CatalogCardBuy extends StatelessWidget {
   final Buku book;
@@ -29,7 +29,9 @@ class CatalogCardBuy extends StatelessWidget {
             Text(
               book.fields.bookTitle ?? "Tidak Ada Judul",
               style: const TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -37,7 +39,9 @@ class CatalogCardBuy extends StatelessWidget {
             Text(
               book.fields.bookAuthor,
               style: const TextStyle(
-                  fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -67,7 +71,8 @@ class CatalogCardBuy extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FormBeliBuku(buku: book)),
+                      MaterialPageRoute(
+                          builder: (context) => FormBeliBuku(buku: book)),
                     );
                   },
                   child: Text(
