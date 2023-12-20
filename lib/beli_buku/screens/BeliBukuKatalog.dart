@@ -17,7 +17,7 @@ class BeliBukuKatalog extends StatefulWidget {
 
 class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
   Future<List<Buku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib.domcloud.dev/beli_buku/get_katalog__buku/');
+    var url = Uri.parse('https://flex-lib.domcloud.dev/json/');
     var response = await http.get(url, headers: {"Content-Type": "application/json"});
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
@@ -81,7 +81,7 @@ class _BeliBukuKatalogState extends State<BeliBukuKatalog> {
           } else if (!snapshot.hasData || snapshot.data.isEmpty) {
             return const Center(
               child: Text(
-                "Belum ada buku yang dibeli.",
+                "Tidak ada data produk.",
                 style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
               ),
             );

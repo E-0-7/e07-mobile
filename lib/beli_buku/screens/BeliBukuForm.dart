@@ -5,6 +5,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:e07_mobile/katalog_buku/models/buku.dart';
 
+
 class FormBeliBuku extends StatefulWidget {
   final Buku buku;
 
@@ -211,39 +212,26 @@ class _FormBeliBukuState extends State<FormBeliBuku> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          try {
-                            final response = await request.postJson(
+                          final response = await request.post(
                               "https://flex-lib.domcloud.dev/beli_buku/create_beli_buku/",
                               jsonEncode(<String, String>{
-                                'buku': widget.buku.pk.toString(),
+                                'buku' : widget.buku.pk.toString(),
                                 'jumlah': _jumlah.toString(),
                                 'nomor_telepon': _nomorTelepon.toString(),
                                 'alamat': _alamat,
                                 'metode_pembayaran': _selectedPaymentMethod,
-                              }),
+                              }));
+                          if (response['status'] == 'success') {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const BeliBukuMainPage()),
                             );
-
-                            final Map<String, dynamic> responseBody = json.decode(response.body);
-
-                            if (responseBody['status'] == 'success') {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => const BeliBukuMainPage()),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Terdapat kesalahan, silakan coba lagi."),
-                                ),
-                              );
-                            }
-                          } catch (error) {
-                            print("Error: $error");
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Terdapat kesalahan pada server."),
-                              ),
-                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                            ));
                           }
                         }
                       },
