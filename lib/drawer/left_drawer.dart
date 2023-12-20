@@ -1,4 +1,5 @@
 import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
+import 'package:e07_mobile/katalog_buku/katalog_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
 import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
@@ -38,7 +39,11 @@ class LeftDrawer extends StatelessWidget {
           leading: const Icon(Icons.home_outlined),
           title: const Text('Katalog Buku'),
           onTap: () {
-            // Ke Katalog Buku
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BookCatalog(),
+                ));
           },
         ),
         ListTile(

@@ -11,6 +11,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:e07_mobile/beli_buku/screens/BeliBukuKatalog.dart';
 
 class BookCatalog extends StatefulWidget {
   const BookCatalog({Key? key}) : super(key: key);
@@ -301,7 +302,13 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
           child: const Text('Pinjam Buku')),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BeliBukuKatalog(),
+                ));
+          },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -382,7 +389,13 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
           child: const Text('Pinjam Buku')),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BeliBukuKatalog(),
+                ));
+          },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
