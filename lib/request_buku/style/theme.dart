@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class ThemeApp {
 // 1
   static TextTheme lightTextTheme = TextTheme(
@@ -11,10 +10,7 @@ class ThemeApp {
       color: Colors.black,
     ),
     bodySmall: GoogleFonts.publicSans(
-        fontSize: 14.0,
-        fontWeight: FontWeight.normal,
-        color: Colors.black
-    ),
+        fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.black),
     displayLarge: GoogleFonts.publicSans(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
@@ -28,13 +24,13 @@ class ThemeApp {
     displaySmall: GoogleFonts.publicSans(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
-      color: Colors.black,),
+      color: Colors.black,
+    ),
     titleLarge: GoogleFonts.publicSans(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
-
   );
 
   static TextTheme statusTheme = TextTheme(
@@ -47,41 +43,23 @@ class ThemeApp {
 // 2
   static TextTheme darkTextTheme = TextTheme(
     headlineLarge: GoogleFonts.publicSans(
-        fontSize: 14.00,
-        fontWeight: FontWeight.w700,
-        color: Colors.white
-    ),
-
+        fontSize: 14.00, fontWeight: FontWeight.w700, color: Colors.white),
     headlineSmall: GoogleFonts.publicSans(
-        fontSize: 16.00,
-        fontWeight: FontWeight.w500,
-        color: Colors.black
-    ),
-
+        fontSize: 16.00, fontWeight: FontWeight.w500, color: Colors.black),
     labelMedium: GoogleFonts.publicSans(
-        fontSize: 16.00,
-        fontWeight: FontWeight.bold,
-        color: Colors.white
-    ),
-
+        fontSize: 16.00, fontWeight: FontWeight.bold, color: Colors.white),
     bodyMedium: GoogleFonts.publicSans(
       fontSize: 14.00,
       fontWeight: FontWeight.normal,
       color: Colors.white,
     ),
-
     bodySmall: GoogleFonts.publicSans(
       fontSize: 12.00,
       fontWeight: FontWeight.normal,
       color: Colors.white,
     ),
-
     labelLarge: GoogleFonts.publicSans(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w500,
-        color: Colors.white
-    ),
-
+        fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white),
     bodyLarge: GoogleFonts.publicSans(
       fontSize: 14.0,
       fontWeight: FontWeight.w700,
@@ -92,12 +70,10 @@ class ThemeApp {
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
-
     displayMedium: GoogleFonts.publicSans(
       fontSize: 21.0,
       fontWeight: FontWeight.w700,
       color: Colors.white,
-
     ),
     displaySmall: GoogleFonts.publicSans(
       fontSize: 21.0,
@@ -116,7 +92,7 @@ class ThemeApp {
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
-              (states) {
+          (states) {
             return Colors.black;
           },
         ),
@@ -125,18 +101,17 @@ class ThemeApp {
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
       ),
-      floatingActionButtonTheme: const
-      FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
         backgroundColor: Colors.black,
       ),
-      bottomNavigationBarTheme: const
-      BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.blueAccent,
       ),
       textTheme: lightTextTheme,
     );
   }
+
 // 4
   static ThemeData dark() {
     return ThemeData(
@@ -145,13 +120,11 @@ class ThemeApp {
         foregroundColor: Colors.white,
         backgroundColor: Colors.grey[900],
       ),
-      floatingActionButtonTheme: const
-      FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
         backgroundColor: Colors.green,
       ),
-      bottomNavigationBarTheme: const
-      BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.blueAccent,
       ),
       textTheme: darkTextTheme,

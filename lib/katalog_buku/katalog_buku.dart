@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:e07_mobile/drawer/left_drawer.dart';
-import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,7 @@ class BookCatalog extends StatefulWidget {
   const BookCatalog({Key? key}) : super(key: key);
 
   @override
-  _BookCatalogState createState() => _BookCatalogState();
+  State<BookCatalog> createState() => _BookCatalogState();
 }
 
 class _BookCatalogState extends State<BookCatalog> {
@@ -58,7 +57,7 @@ class _BookCatalogState extends State<BookCatalog> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.push(
                 context,
@@ -101,7 +100,8 @@ class _BookCatalogState extends State<BookCatalog> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Di Flex-lib, kamu dapat meminjam buku, beli buku, request buku, dan donasi buku lama kamu',
+                            text:
+                                'Di Flex-lib, kamu dapat meminjam buku, beli buku, request buku, dan donasi buku lama kamu',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -114,12 +114,13 @@ class _BookCatalogState extends State<BookCatalog> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 10.0),
                     color: const Color(0xFF163869),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Daftar Buku',
                           style: TextStyle(
                             color: Colors.white,
@@ -146,36 +147,51 @@ class _BookCatalogState extends State<BookCatalog> {
                             AspectRatio(
                               aspectRatio: 2 / 3,
                               child: Image.network(
-                                book.fields.urlFotoLarge == null ? "http://images.amazon.com/images/P/1879384493.01.LZZZZZZZ.jpg" : book.fields.urlFotoLarge,
+                                book.fields.urlFotoLarge ??
+                                    "http://images.amazon.com/images/P/1879384493.01.LZZZZZZZ.jpg",
                                 fit: BoxFit.cover,
                                 width: double.infinity,
                               ),
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              book.fields.bookTitle == null ? "Tidak Ada Judul" : book.fields.bookTitle,
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                              book.fields.bookTitle ?? "Tidak Ada Judul",
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              book.fields.bookAuthor == null ? "Tidak Ada Penulis" : book.fields.bookAuthor,
-                              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
+                              book.fields.bookAuthor ?? "Tidak Ada Penulis",
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              book.fields.tahunPublikasi.toString() == false ? "-1" : book.fields.tahunPublikasi.toString(),
-                              style: const TextStyle(fontSize: 14, color: Colors.white),
+                              book.fields.tahunPublikasi.toString() == "" ||
+                                      book.fields.tahunPublikasi
+                                              .toString()
+                                              .toLowerCase() ==
+                                          "null"
+                                  ? "-1"
+                                  : book.fields.tahunPublikasi.toString(),
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              book.fields.penerbit == null ? "Tidak Ada Penerbit" : book.fields.penerbit,
-                              style: const TextStyle(fontSize: 14, color: Colors.white),
+                              book.fields.penerbit ?? "Tidak Ada Penerbit",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -185,7 +201,8 @@ class _BookCatalogState extends State<BookCatalog> {
                       ),
                     );
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(2),
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),
@@ -199,16 +216,18 @@ class _BookCatalogState extends State<BookCatalog> {
       ),
     );
   }
-Widget _buildUserSpecificButtons() {
-  final userStatus = Provider.of<UserStatusModel>(context, listen: false).userStatus;
+
+  Widget _buildUserSpecificButtons() {
+    final userStatus =
+        Provider.of<UserStatusModel>(context, listen: false).userStatus;
     if (userStatus == 'guest') {
-      return SizedBox.shrink(); // No buttons for guests
+      return const SizedBox.shrink(); // No buttons for guests
     } else if (userStatus == 'loggedIn') {
       return _buildLoggedInButtons();
     } else if (userStatus == 'pustakawan') {
       return _buildLibrarianButtons();
     } else {
-      return SizedBox.shrink(); // Default case
+      return const SizedBox.shrink(); // Default case
     }
   }
 
@@ -216,10 +235,10 @@ Widget _buildUserSpecificButtons() {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
-        ElevatedButton(onPressed: () {}, child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Beli Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Request Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Donasi Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Pinjam Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Beli Buku')),
       ],
     );
   }
@@ -228,11 +247,11 @@ Widget _buildUserSpecificButtons() {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
-        ElevatedButton(onPressed: () {}, child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Beli Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Tambah Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Request Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Donasi Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Pinjam Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Beli Buku')),
+        ElevatedButton(onPressed: () {}, child: const Text('Tambah Buku')),
       ],
     );
   }

@@ -1,6 +1,4 @@
 import 'package:e07_mobile/authentication/register.dart';
-import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
-import 'package:e07_mobile/request_buku/models/request_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +6,13 @@ import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
 import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
 
-import '../katalog_buku/models/userstatus.dart';
-
 Map<String, dynamic> userData = {"is_login": false, "username": ""};
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -33,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
 
-
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.all(16.0),
@@ -43,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -103,15 +98,15 @@ class _LoginPageState extends State<LoginPage> {
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.blue),
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero),
                           ),
                           onPressed: () {
                             // Add your back function here
                             Navigator.pop(context);
                           },
-                          child: Text('Back'),
+                          child: const Text('Back'),
                         ),
                         OutlinedButton(
                           onPressed: () async {
@@ -132,16 +127,20 @@ class _LoginPageState extends State<LoginPage> {
                                 });
 
                             if (request.loggedIn) {
-                              Provider.of<UserStatusModel>(context, listen: false).login(username);
+                              if (!context.mounted) return;
+                              Provider.of<UserStatusModel>(context,
+                                      listen: false)
+                                  .login(username);
                               String message = response['message'];
                               String uname = response['username'];
                               userData['is_login'] = true;
                               userData['username'] = uname;
-                              Future.delayed(Duration(seconds: 2), () {
+                              Future.delayed(const Duration(seconds: 2), () {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const MainRequestBuku()), 
+                                      builder: (context) =>
+                                          const MainRequestBuku()),
                                 );
                               });
                               showDialog(
@@ -161,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               );
                             } else {
+                              if (!context.mounted) return;
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
@@ -180,8 +180,8 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.blue),
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero),
                           ),
                           child: const Text('Login'),
@@ -196,11 +196,11 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            side: BorderSide(color: Colors.blue),
-                            shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.blue),
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero),
                           ),
-                          child: Text('Register'),
+                          child: const Text('Register'),
                         ),
                         const SizedBox(width: 20.0),
                       ],
