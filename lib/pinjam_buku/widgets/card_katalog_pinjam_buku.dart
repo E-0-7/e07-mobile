@@ -19,7 +19,8 @@ class PinjamBukuKatalogCard extends StatelessWidget {
             AspectRatio(
               aspectRatio: 2 / 3,
               child: Image.network(
-                book.fields.urlFotoLarge ?? "http://images.amazon.com/images/P/1879384493.01.LZZZZZZZ.jpg",
+                book.fields.urlFotoLarge ??
+                    "http://images.amazon.com/images/P/1879384493.01.LZZZZZZZ.jpg",
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -27,14 +28,20 @@ class PinjamBukuKatalogCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               book.fields.bookTitle ?? "Tidak Ada Judul",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
             const SizedBox(height: 5),
             Text(
               book.fields.bookAuthor,
-              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -64,7 +71,8 @@ class PinjamBukuKatalogCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FormPinjamBuku(buku: book)),
+                      MaterialPageRoute(
+                          builder: (context) => FormPinjamBuku(buku: book)),
                     );
                   },
                   child: const Text(

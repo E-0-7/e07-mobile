@@ -11,19 +11,20 @@ class MainPinjamBuku extends StatefulWidget {
   const MainPinjamBuku({Key? key}) : super(key: key);
 
   @override
-  _MainPinjamBukuState createState() => _MainPinjamBukuState();
+  State<MainPinjamBuku> createState() => _MainPinjamBukuState();
 }
 
 class _MainPinjamBukuState extends State<MainPinjamBuku> {
   Future<List<GabunganPinjamBuku>> fetchProduct(request) async {
-    List<GabunganPinjamBuku> list_pinjam_buku = [];
-    var response = await request.get("https://flex-lib.domcloud.dev/pinjam_buku/get_pinjam_data_ajax/");
+    List<GabunganPinjamBuku> listPinjamBuku = [];
+    var response = await request
+        .get("https://flex-lib.domcloud.dev/pinjam_buku/get_pinjam_data_ajax/");
     for (var d in response) {
       if (d != null) {
-        list_pinjam_buku.add(GabunganPinjamBuku.fromJson(d));
+        listPinjamBuku.add(GabunganPinjamBuku.fromJson(d));
       }
     }
-    return list_pinjam_buku;
+    return listPinjamBuku;
   }
 
   @override
@@ -81,7 +82,8 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Berikut adalah daftar buku yang telah kamu pinjam dari Flex-Lib. Pastikan untuk mengembalikan buku tepat waktu dan menikmati pembacaanmu!',
+                            text:
+                                'Berikut adalah daftar buku yang telah kamu pinjam dari Flex-Lib. Pastikan untuk mengembalikan buku tepat waktu dan menikmati pembacaanmu!',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -94,7 +96,8 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 10.0),
                     color: const Color(0xFF163869),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,12 +112,15 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
                           ),
                           onPressed: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const KatalogPinjamBuku()),
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const KatalogPinjamBuku()),
                             );
                           },
                           child: const Text(
@@ -133,7 +139,8 @@ class _MainPinjamBukuState extends State<MainPinjamBuku> {
                     var book = snapshot.data![index];
                     return PinjamBukuMainCard(book: book);
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(2),
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),

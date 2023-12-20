@@ -33,7 +33,6 @@ class _DonationPageState extends State<DonationPage> {
     return donations;
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (!userData['is_login']) {

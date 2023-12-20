@@ -5,14 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:e07_mobile/pinjam_buku/screens/main_pinjam_buku.dart';
 import 'package:e07_mobile/pinjam_buku/models/buku.dart';
 
-
 class FormPinjamBuku extends StatefulWidget {
   final Buku buku;
 
   const FormPinjamBuku({Key? key, required this.buku}) : super(key: key);
 
   @override
-  _FormPinjamBukuState createState() => _FormPinjamBukuState();
+  State<FormPinjamBuku> createState() => _FormPinjamBukuState();
 }
 
 class _FormPinjamBukuState extends State<FormPinjamBuku> {
@@ -21,7 +20,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
   int _nomorTelepon = 0;
   String _alamat = "";
 
-@override
+  @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
@@ -35,7 +34,8 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
       backgroundColor: const Color(0xFF0B1F49),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
             key: _formKey,
             child: Column(
@@ -43,7 +43,7 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 5),
-                Container(
+                SizedBox(
                   width: 200,
                   height: 300,
                   child: Image.network(
@@ -54,13 +54,19 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                 const SizedBox(height: 5),
                 Text(
                   widget.buku.fields.bookTitle.toString(),
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 5),
                 Text(
                   widget.buku.fields.bookAuthor.toString(),
-                  style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 5),
@@ -180,21 +186,24 @@ class _FormPinjamBukuState extends State<FormPinjamBuku> {
                           final response = await request.post(
                               "https://flex-lib.domcloud.dev/pinjam_buku/create_pinjam_buku/",
                               jsonEncode(<String, String>{
-                                'buku' : widget.buku.pk.toString(),
+                                'buku': widget.buku.pk.toString(),
                                 'durasi': _durasi.toString(),
                                 'nomor_telepon': _nomorTelepon.toString(),
                                 'alamat': _alamat,
                               }));
                           if (response['status'] == 'success') {
+                            if (!context.mounted) return;
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const MainPinjamBuku()),
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPinjamBuku()),
                             );
                           } else {
+                            if (!context.mounted) return;
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
-                              content:
-                              Text("Terdapat kesalahan, silakan coba lagi."),
+                              content: Text(
+                                  "Terdapat kesalahan, silakan coba lagi."),
                             ));
                           }
                         }

@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-List<StatusBuku> statusBukuFromJson(String str) => List<StatusBuku>.from(json.decode(str).map((x) => StatusBuku.fromJson(x)));
+List<StatusBuku> statusBukuFromJson(String str) =>
+    List<StatusBuku>.from(json.decode(str).map((x) => StatusBuku.fromJson(x)));
 
-String statusBukuToJson(List<StatusBuku> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String statusBukuToJson(List<StatusBuku> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class StatusBuku {
   String model;
@@ -20,16 +22,16 @@ class StatusBuku {
   });
 
   factory StatusBuku.fromJson(Map<String, dynamic> json) => StatusBuku(
-    model: json["model"],
-    pk: json["pk"],
-    fields: Fields.fromJson(json["fields"]),
-  );
+        model: json["model"],
+        pk: json["pk"],
+        fields: Fields.fromJson(json["fields"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "model": model,
-    "pk": pk,
-    "fields": fields.toJson(),
-  };
+        "model": model,
+        "pk": pk,
+        "fields": fields.toJson(),
+      };
 }
 
 class Fields {
@@ -42,12 +44,12 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-    buku: json["buku"],
-    status: json["status"],
-  );
+        buku: json["buku"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "buku": buku,
-    "status": status,
-  };
+        "buku": buku,
+        "status": status,
+      };
 }
