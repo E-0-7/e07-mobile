@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-List<Buku> bukuFromJson(String str) => List<Buku>.from(json.decode(str).map((x) => Buku.fromJson(x)));
+List<Buku> bukuFromJson(String str) =>
+    List<Buku>.from(json.decode(str).map((x) => Buku.fromJson(x)));
 
-String bukuToJson(List<Buku> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String bukuToJson(List<Buku> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Buku {
   Model model;
@@ -16,16 +18,16 @@ class Buku {
   });
 
   factory Buku.fromJson(Map<String, dynamic> json) => Buku(
-    model: modelValues.map[json["model"]]!,
-    pk: json["pk"],
-    fields: Fields.fromJson(json["fields"]),
-  );
+        model: modelValues.map[json["model"]]!,
+        pk: json["pk"],
+        fields: Fields.fromJson(json["fields"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "model": modelValues.reverse[model],
-    "pk": pk,
-    "fields": fields.toJson(),
-  };
+        "model": modelValues.reverse[model],
+        "pk": pk,
+        "fields": fields.toJson(),
+      };
 }
 
 class Fields {
@@ -52,37 +54,33 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-    isbn: json["isbn"],
-    bookTitle: json["book_title"],
-    bookAuthor: json["book_author"],
-    tahunPublikasi: json["tahun_publikasi"],
-    penerbit: json["penerbit"],
-    urlFotoKecil: json["url_foto_kecil"],
-    urlFotoMedium: json["url_foto_medium"],
-    urlFotoLarge: json["url_foto_large"],
-    bookPrice: json["book_price"],
-  );
+        isbn: json["isbn"],
+        bookTitle: json["book_title"],
+        bookAuthor: json["book_author"],
+        tahunPublikasi: json["tahun_publikasi"],
+        penerbit: json["penerbit"],
+        urlFotoKecil: json["url_foto_kecil"],
+        urlFotoMedium: json["url_foto_medium"],
+        urlFotoLarge: json["url_foto_large"],
+        bookPrice: json["book_price"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "isbn": isbn,
-    "book_title": bookTitle,
-    "book_author": bookAuthor,
-    "tahun_publikasi": tahunPublikasi,
-    "penerbit": penerbit,
-    "url_foto_kecil": urlFotoKecil,
-    "url_foto_medium": urlFotoMedium,
-    "url_foto_large": urlFotoLarge,
-    "book_price": bookPrice,
-  };
+        "isbn": isbn,
+        "book_title": bookTitle,
+        "book_author": bookAuthor,
+        "tahun_publikasi": tahunPublikasi,
+        "penerbit": penerbit,
+        "url_foto_kecil": urlFotoKecil,
+        "url_foto_medium": urlFotoMedium,
+        "url_foto_large": urlFotoLarge,
+        "book_price": bookPrice,
+      };
 }
 
-enum Model {
-  KATALOG_BUKU_BUKU
-}
+enum Model { katalogBukuBuku }
 
-final modelValues = EnumValues({
-  "katalog_buku.buku": Model.KATALOG_BUKU_BUKU
-});
+final modelValues = EnumValues({"katalog_buku.buku": Model.katalogBukuBuku});
 
 class EnumValues<T> {
   Map<String, T> map;

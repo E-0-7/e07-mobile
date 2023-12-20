@@ -97,31 +97,32 @@ class DonationCard extends StatelessWidget {
                   donation.fields.status == "PENDING"
                       ? Center(
                           child: ElevatedButton(
-                            onPressed: () async {
-                              final response = await request.postJson(
-                                  "https://flex-lib.domcloud.dev/donasi_buku/delete-flutter/",
-                                  //"http://localhost:8000/donasi_buku/delete-flutter/",
-                                  jsonEncode(<String, String>{
-                                    'id': donation.pk.toString()
-                                  }));
-                              if (response['status'] == 'success') {
-                                if (!context.mounted) return;
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text("Donasi berhasil dihapus!"),
-                                ));
-                                onDonationDeleted(donation);
-                              } else {
-                                if (!context.mounted) return;
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            "Terdapat kesalahan, silakan coba lagi.")));
-                              }
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0),
-                              child: Text("Cancel Donation", textAlign: TextAlign.center),
+                          onPressed: () async {
+                            final response = await request.postJson(
+                                "https://flex-lib.domcloud.dev/donasi_buku/delete-flutter/",
+                                //"http://localhost:8000/donasi_buku/delete-flutter/",
+                                jsonEncode(<String, String>{
+                                  'id': donation.pk.toString()
+                                }));
+                            if (response['status'] == 'success') {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Donasi berhasil dihapus!"),
+                              ));
+                              onDonationDeleted(donation);
+                            } else {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          "Terdapat kesalahan, silakan coba lagi.")));
+                            }
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4.0),
+                            child: Text("Cancel Donation",
+                                textAlign: TextAlign.center),
                           ),
                         ))
                       : const SizedBox(height: 0.0),
