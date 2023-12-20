@@ -12,23 +12,25 @@ class KatalogPinjamBuku extends StatefulWidget {
   const KatalogPinjamBuku({Key? key}) : super(key: key);
 
   @override
-  _KatalogPinjamBukuState createState() => _KatalogPinjamBukuState();
+  State<KatalogPinjamBuku> createState() => _KatalogPinjamBukuState();
 }
 
 class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
   Future<List<Buku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib.domcloud.dev/pinjam_buku/get_katalog_pinjam_buku/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var url = Uri.parse(
+        'https://flex-lib.domcloud.dev/pinjam_buku/get_katalog_pinjam_buku/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-    List<Buku> list_product = [];
+    List<Buku> listProduct = [];
     for (var d in data) {
       if (d != null) {
-        list_product.add(Buku.fromJson(d));
+        listProduct.add(Buku.fromJson(d));
       }
     }
-    return list_product;
+    return listProduct;
   }
 
   @override
@@ -104,7 +106,8 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Selamat datang ${userData['username']}, silakan pinjam buku.\nDi Flex-Lib, kamu dapat meminjam buku. Kami akan memproses peminjaman buku kamu dan memberikan buku tersebut jika tersedia.',
+                            text:
+                                'Selamat datang ${userData['username']}, silakan pinjam buku.\nDi Flex-Lib, kamu dapat meminjam buku. Kami akan memproses peminjaman buku kamu dan memberikan buku tersebut jika tersedia.',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -117,7 +120,8 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 10.0),
                     color: const Color(0xFF163869),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,12 +136,14 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
                           ),
                           onPressed: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const MainPinjamBuku()),
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPinjamBuku()),
                             );
                           },
                           child: const Text(
@@ -156,7 +162,8 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                     var book = snapshot.data![index];
                     return PinjamBukuKatalogCard(book: book);
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(2),
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),

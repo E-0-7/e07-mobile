@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-List<RequestBuku> requestBukuFromJson(String str) => List<RequestBuku>.from(json.decode(str).map((x) => RequestBuku.fromJson(x)));
+List<RequestBuku> requestBukuFromJson(String str) => List<RequestBuku>.from(
+    json.decode(str).map((x) => RequestBuku.fromJson(x)));
 
-String requestBukuToJson(List<RequestBuku> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String requestBukuToJson(List<RequestBuku> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class RequestBuku {
   String model;
@@ -20,16 +22,16 @@ class RequestBuku {
   });
 
   factory RequestBuku.fromJson(Map<String, dynamic> json) => RequestBuku(
-    model: json["model"],
-    pk: json["pk"],
-    fields: Fields.fromJson(json["fields"]),
-  );
+        model: json["model"],
+        pk: json["pk"],
+        fields: Fields.fromJson(json["fields"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "model": model,
-    "pk": pk,
-    "fields": fields.toJson(),
-  };
+        "model": model,
+        "pk": pk,
+        "fields": fields.toJson(),
+      };
 }
 
 class Fields {
@@ -50,20 +52,21 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-    user: json["user"],
-    judulBuku: json["judul_buku"],
-    author: json["author"],
-    tahunPublikasi: json["tahun_publikasi"],
-    isiBuku: json["isi_buku"],
-    tanggalRequest: DateTime.parse(json["tanggal_request"]),
-  );
+        user: json["user"],
+        judulBuku: json["judul_buku"],
+        author: json["author"],
+        tahunPublikasi: json["tahun_publikasi"],
+        isiBuku: json["isi_buku"],
+        tanggalRequest: DateTime.parse(json["tanggal_request"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "user": user,
-    "judul_buku": judulBuku,
-    "author": author,
-    "tahun_publikasi": tahunPublikasi,
-    "isi_buku": isiBuku,
-    "tanggal_request": "${tanggalRequest.year.toString().padLeft(4, '0')}-${tanggalRequest.month.toString().padLeft(2, '0')}-${tanggalRequest.day.toString().padLeft(2, '0')}",
-  };
+        "user": user,
+        "judul_buku": judulBuku,
+        "author": author,
+        "tahun_publikasi": tahunPublikasi,
+        "isi_buku": isiBuku,
+        "tanggal_request":
+            "${tanggalRequest.year.toString().padLeft(4, '0')}-${tanggalRequest.month.toString().padLeft(2, '0')}-${tanggalRequest.day.toString().padLeft(2, '0')}",
+      };
 }
