@@ -9,6 +9,13 @@
 - Bimantoro Widyadana   (2206824306)
 - Thirza Ahmad Tsaqif   (2206082556)
 
+
+## Link Distribusi Aplikasi 
+![./asset/images/no_image_icon.png](./asset/images/no_image_icon.png)
+### Aplikasi Tersedia di App Center dengan nama `Flex-lib` <br>
+### [Link Aplikasi Flex-Lib](https://install.appcenter.ms/orgs/e07/apps/flex-lib-app/distribution_groups/public)
+[![Build status](https://build.appcenter.ms/v0.1/apps/3d8b0ec2-17e2-4adf-9f0c-f6879fbec4eb/branches/main/badge)](https://appcenter.ms)
+
 ## Cerita aplikasi yang diajukan serta manfaatnya
 Dalam era digital saat ini, tantangan literasi bukan hanya sebatas aksesibilitas buku, tetapi juga bagaimana memotivasi masyarakat untuk terlibat aktif dalam budaya membaca. Sebagai respons terhadap kondisi sosial yang menunjukkan adanya penurunan minat baca, diperkenalkan sebuah inovasi digital bernama `Flex-lib`. Kita memutuskan untuk menggunakan nama `Flex-lib` karena kita membuat sebuah aplikasi literasi yang dapat diakses darimana saja dan kapan saja sehingga sangat fleksibel. Aplikasi web ini merupakan simbol harapan baru bagi pecinta buku dan mereka yang ingin mendalami dunia literasi. `Flex-lib` menawarkan fitur Katalog Buku yang memudahkan pengguna untuk menelusuri koleksi buku berdasarkan berbagai kategori dan preferensi. Bagi mereka yang ingin menambah koleksi pribadi, fitur Beli Buku siap menyajikan pilihan buku baru maupun bekas dengan harga terjangkau. Namun, jika pengguna hanya ingin menikmati buku dalam jangka waktu tertentu, fitur Pinjam Buku memungkinkan mereka untuk meminjam buku tanpa harus mengeluarkan biaya besar. Menyadari betapa berharganya setiap buku dan pentingnya mendistribusikan ilmu kepada yang membutuhkan, `Flex-lib` memfasilitasi fitur Donasi Buku, di mana masyarakat dapat berdonasi atau menerima buku dari donatur lainnya. Selain itu, fitur Request Buku memungkinkan pengguna untuk meminta buku tertentu yang belum ada dalam katalog, menggambarkan bagaimana aplikasi ini berupaya memenuhi kebutuhan literasi setiap individu. Dengan `Flex-lib`, kita bukan hanya menghadirkan buku ke hadapan masyarakat, tetapi juga mengajak masyarakat datang kepada buku, merangkul mereka dalam budaya literasi, dan membangun jembatan pengetahuan yang lebih inklusif dan kolaboratif.
 
@@ -87,8 +94,21 @@ Untuk Fitur Donasi Buku: <br>
 ## Tautan Berita Acara
 [Berita Acara](https://docs.google.com/spreadsheets/d/1G-1tKHE3ZCuPg560ifwNoP7c5bZUEQPgbGDF1paXKHA/edit?usp=sharing)
 
-## Badge App Center
-[![Build status](https://build.appcenter.ms/v0.1/apps/3d8b0ec2-17e2-4adf-9f0c-f6879fbec4eb/branches/main/badge)](https://appcenter.ms)
+## Panduan Build
+1. Pastikan Anda telah menginstall Flutter pada perangkat Anda. Kami mengharapkan anda untuk menggunakan Dart SDK versi `3.2.0 < 4.0.0`
+2. Lakukan clone pada repository ini.
+3. Buka folder repository ini pada IDE Anda.
+4. Jalankan perintah `flutter pub get` pada terminal IDE Anda untuk mendapatkan semua dependensi yang dibutuhkan.
+5. Jalankan perintah `flutter run` pada terminal IDE Anda untuk menjalankan aplikasi ini.
 
-## Link Distribusi Aplikasi 
-[Flex-Lib](https://install.appcenter.ms/orgs/e07/apps/flex-lib-app/distribution_groups/public)
+## Contribute.md
+Ketika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
+1. Diskusikan dengan kami melalui issue untuk mengetahui apakah perubahan yang ingin Anda lakukan.
+2. Ketika Anda ingin menambahkan fitur, buatlah issue baru untuk mengusulkan fitur tersebut.
+3. Ketika Anda ingin memperbaiki bug, buatlah issue baru untuk mengusulkan perbaikan tersebut.
+4. Ketika Anda ingin menambahkan atau memperbaiki dokumentasi, buatlah issue baru untuk mengusulkan perbaikan tersebut.
+5. Setelah issue dibuat, Anda dapat melakukan fork pada repository ini.
+6. Setelah melakukan fork, Anda dapat melakukan perubahan pada repository Anda.
+7. Setelah melakukan perubahan, Anda dapat melakukan pull request ke repository ini.
+8. Setelah melakukan pull request, Kami akan melakukan review terhadap perubahan yang Anda lakukan.
+9. Setelah review selesai, perubahan akan di-merge ke repository ini.
