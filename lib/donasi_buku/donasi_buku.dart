@@ -36,8 +36,16 @@ class _DonationPageState extends State<DonationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
+    if (!userData['is_login']) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      });
+    }
 
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         leading: Builder(

@@ -62,7 +62,7 @@ class _DonationCardGridState extends State<DonationCardGrid> {
     return Column(children: [
       DonationSearchBar(onValueChanged: search),
       const SizedBox(height: 10),
-      rows != 0
+      displayedDonations.isNotEmpty
           ? LayoutGrid(
               columnSizes:
                   columns == 2 ? [1.fr, 1.fr] : [1.fr, 1.fr, 1.fr, 1.fr],
@@ -81,14 +81,23 @@ class _DonationCardGridState extends State<DonationCardGrid> {
                           onDonationDeleted: onDonationDeleted))
                       .toList(),
             )
-          : const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Buku tidak ditemukan",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ))
+          : widget.donations.isNotEmpty
+              ? const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Buku tidak ditemukan",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ))
+              : const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "Anda belum ada donasi buku",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ))
     ]);
   }
 }

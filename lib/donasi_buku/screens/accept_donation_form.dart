@@ -30,7 +30,7 @@ class _AcceptDonationFormState extends State<AcceptDonationForm> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Terima Donasi Buku"),
+        title: const Text("Lengkapi Informasi Buku"),
       ),
       body: Form(
         key: _formKey,
