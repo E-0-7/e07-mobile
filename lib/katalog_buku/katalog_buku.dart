@@ -255,6 +255,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -270,6 +273,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -285,6 +291,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -294,6 +303,9 @@ class _BookCatalogState extends State<BookCatalog> {
       ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -306,6 +318,8 @@ class _BookCatalogState extends State<BookCatalog> {
       primary: false,
       padding: const EdgeInsets.all(20),
       crossAxisCount: 2,
+      mainAxisSpacing: 20, // Jarak vertikal antara tombol
+      crossAxisSpacing: 20,
       shrinkWrap: true,
       children: buttons,
     );
@@ -322,6 +336,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -337,6 +354,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -352,6 +372,9 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -361,6 +384,9 @@ class _BookCatalogState extends State<BookCatalog> {
       ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
@@ -376,10 +402,13 @@ class _BookCatalogState extends State<BookCatalog> {
                 ));
           },
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
-            textStyle: const TextStyle(fontSize: 14), // Atur ukuran teks tombol
+            textStyle: const TextStyle(fontSize: 14),// Atur ukuran teks tombol
           ),
           child: const Text('Tambah Buku')),
     ];
@@ -388,6 +417,8 @@ class _BookCatalogState extends State<BookCatalog> {
       primary: false,
       padding: const EdgeInsets.all(20),
       crossAxisCount: 2,
+      mainAxisSpacing: 20, // Jarak vertikal antara tombol
+      crossAxisSpacing: 20,
       shrinkWrap: true,
       children: buttons,
     );
