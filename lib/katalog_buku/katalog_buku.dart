@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 
 class BookCatalog extends StatefulWidget {
   const BookCatalog({Key? key}) : super(key: key);
-  const BookCatalog({Key? key}) : super(key: key);
 
   @override
   _BookCatalogState createState() => _BookCatalogState();
