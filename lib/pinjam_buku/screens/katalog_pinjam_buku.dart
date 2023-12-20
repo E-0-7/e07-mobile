@@ -1,41 +1,49 @@
-import 'package:e07_mobile/authentication/login.dart';
-import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:e07_mobile/pinjam_buku/models/buku.dart';
-import 'package:e07_mobile/pinjam_buku/screens/form_pinjam_buku.dart';
+import 'package:e07_mobile/pinjam_buku/widgets/card_katalog_pinjam_buku.dart';
+import 'package:e07_mobile/authentication/login.dart';
+import 'package:e07_mobile/drawer/left_drawer.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/pinjam_buku/screens/main_pinjam_buku.dart';
 
 class KatalogPinjamBuku extends StatefulWidget {
   const KatalogPinjamBuku({Key? key}) : super(key: key);
 
   @override
-  _KatalogPinjamBukuState createState() => _KatalogPinjamBukuState();
+  State<KatalogPinjamBuku> createState() => _KatalogPinjamBukuState();
 }
 
 class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
   Future<List<Buku>> fetchProduct() async {
-    var url = Uri.parse('https://flex-lib.domcloud.dev/pinjam_buku/get_katalog_pinjam_buku/');
-    var response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
+    var url = Uri.parse(
+        'https://flex-lib.domcloud.dev/pinjam_buku/get_katalog_pinjam_buku/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-    List<Buku> list_product = [];
+    List<Buku> listProduct = [];
     for (var d in data) {
       if (d != null) {
-        list_product.add(Buku.fromJson(d));
+        listProduct.add(Buku.fromJson(d));
       }
     }
-    return list_product;
+    return listProduct;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!userData['is_login']) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pinjam Buku'),
@@ -55,7 +63,7 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.push(
                 context,
@@ -87,9 +95,9 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                     padding: const EdgeInsets.all(16.0),
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: const TextSpan(
+                      text: TextSpan(
                         children: [
-                          TextSpan(
+                          const TextSpan(
                             text: 'Flex-Lib\nPinjam Buku\n\n',
                             style: TextStyle(
                               color: Colors.white,
@@ -98,8 +106,9 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Di Flex-lib, kamu dapat meminjam buku. Kami akan memproses peminjaman buku kamu dan memberikan buku tersebut jika tersedia.',
-                            style: TextStyle(
+                            text:
+                                'Selamat datang ${userData['username']}, silakan pinjam buku.\nDi Flex-Lib, kamu dapat meminjam buku. Kami akan memproses peminjaman buku kamu dan memberikan buku tersebut jika tersedia.',
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
@@ -111,7 +120,8 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 10.0),
                     color: const Color(0xFF163869),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,12 +136,14 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
                           ),
-                          onPressed: () async {
+                          onPressed: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const MainPinjamBuku()),
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPinjamBuku()),
                             );
                           },
                           child: const Text(
@@ -148,78 +160,10 @@ class _KatalogPinjamBukuState extends State<KatalogPinjamBuku> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = snapshot.data![index];
-                    return Card(
-                      color: const Color(0xFF163869),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AspectRatio(
-                              aspectRatio: 2 / 3,
-                              child: Image.network(
-                                book.fields.urlFotoLarge == null ? "http://images.amazon.com/images/P/1879384493.01.LZZZZZZZ.jpg" : book.fields.urlFotoLarge,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              book.fields.bookTitle == null ? "Tidak Ada Judul" : book.fields.bookTitle,
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              book.fields.bookAuthor == null ? "Tidak Ada Penulis" : book.fields.bookAuthor,
-                              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              book.fields.tahunPublikasi.toString() == false ? "-1" : book.fields.tahunPublikasi.toString(),
-                              style: const TextStyle(fontSize: 14, color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              book.fields.penerbit == null ? "Tidak Ada Penerbit" : book.fields.penerbit,
-                              style: const TextStyle(fontSize: 14, color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const SizedBox(height: 10),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                                  ),
-                                  onPressed: () async {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => FormPinjamBuku(buku: book)),
-                                    );
-                                  },
-                                  child: const Text(
-                                    "Pinjam Buku Sekarang",
-                                    style: TextStyle(color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    return PinjamBukuKatalogCard(book: book);
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(2),
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),
