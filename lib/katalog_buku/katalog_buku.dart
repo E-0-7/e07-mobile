@@ -1,4 +1,8 @@
+import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
+import 'package:e07_mobile/katalog_buku/tambah_buku.dart';
+import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
+import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/katalog_buku/models/buku.dart';
 import 'package:http/http.dart' as http;
@@ -6,10 +10,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'dart:convert';
-
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 class BookCatalog extends StatefulWidget {
+  const BookCatalog({Key? key}) : super(key: key);
   const BookCatalog({Key? key}) : super(key: key);
 
   @override
@@ -18,14 +23,23 @@ class BookCatalog extends StatefulWidget {
 
 class _BookCatalogState extends State<BookCatalog> {
   late Future<List<Buku>> books;
+  late CookieRequest request; 
 
   @override
   void initState() {
     super.initState();
-    books = fetchBooks();
+    // Don't access Provider in initState
   }
 
-  Future<List<Buku>> fetchBooks() async {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Access Provider here
+    request = Provider.of<CookieRequest>(context);
+    books = fetchBooks(request);
+  }
+
+  Future<List<Buku>> fetchBooks(CookieRequest request) async {
     final response = await http.get(
       Uri.parse('https://flex-lib.domcloud.dev/json/'),
     );
@@ -50,7 +64,6 @@ class _BookCatalogState extends State<BookCatalog> {
             return IconButton(
               icon: Image.asset('asset/images/login_books.png'),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
               },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
@@ -68,10 +81,9 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
         ],
       ),
-      drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
       body: FutureBuilder(
-        future: fetchBooks(),
+        future: fetchBooks(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -131,6 +143,9 @@ class _BookCatalogState extends State<BookCatalog> {
                     ),
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: _buildUserSpecificButtons(),
+                ),
                 SliverStaggeredGrid.countBuilder(
                   crossAxisCount: 4,
                   itemCount: snapshot.data!.length,
@@ -189,9 +204,6 @@ class _BookCatalogState extends State<BookCatalog> {
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                 ),
-                SliverToBoxAdapter(
-                  child: _buildUserSpecificButtons(),
-                ),
               ],
             );
           }
@@ -213,27 +225,92 @@ Widget _buildUserSpecificButtons() {
   }
 
   Widget _buildLoggedInButtons() {
-    return ButtonBar(
-      alignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(onPressed: () {}, child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Beli Buku')),
-      ],
+      List<Widget> buttons = [
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainRequestBuku(),
+                    ));},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Request Buku')),
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DonationPage(),
+                    ));}, style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ),child: Text('Donasi Buku')),
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KatalogPinjamBuku(),
+                    ));},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Pinjam Buku')),
+        ElevatedButton(onPressed: () {},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Beli Buku')),
+      ];
+
+      return GridView.count(
+      primary: false,
+      padding: const EdgeInsets.all(20),
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      children: buttons,
     );
   }
 
   Widget _buildLibrarianButtons() {
-    return ButtonBar(
-      alignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(onPressed: () {}, child: Text('Request Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Donasi Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Pinjam Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Beli Buku')),
-        ElevatedButton(onPressed: () {}, child: Text('Tambah Buku')),
-      ],
+    List<Widget> buttons = [
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainRequestBuku(),
+                    ));},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Request Buku')),
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DonationPage(),
+                    ));}, style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ),child: Text('Donasi Buku')),
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KatalogPinjamBuku(),
+                    ));},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Pinjam Buku')),
+        ElevatedButton(onPressed: () {},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Beli Buku')),
+        ElevatedButton(onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FormTambahBuku(),
+                    ));},style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Atur ukuran tombol sesuai keinginan Anda
+        textStyle: TextStyle(fontSize: 14), // Atur ukuran teks tombol
+      ), child: Text('Tambah Buku')),
+    ];
+
+    return GridView.count(
+      primary: false,
+      padding: const EdgeInsets.all(20),
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      children: buttons,
     );
   }
 }
