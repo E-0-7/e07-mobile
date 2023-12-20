@@ -1,3 +1,4 @@
+import 'package:e07_mobile/beli_buku/widgets/CatalogCard.dart';
 import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
 import 'package:flutter/material.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
@@ -6,6 +7,7 @@ import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
 import 'package:provider/provider.dart';
 import 'package:e07_mobile/authentication/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:e07_mobile/beli_buku/screens/BeliBukuKatalog.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -66,13 +68,6 @@ class LeftDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.shopping_cart),
-              title: const Text('Beli Buku'),
-              onTap: () {
-                // Ke Keranjang
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.handshake),
               title: const Text('Pinjam Buku'),
               onTap: () {
@@ -87,6 +82,11 @@ class LeftDrawer extends StatelessWidget {
               leading: const Icon(Icons.shopping_bag),
               title: const Text('Beli Buku'),
               onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BeliBukuKatalog(),
+                    ));
                 // Ke Beli Buku
               },
             ),
