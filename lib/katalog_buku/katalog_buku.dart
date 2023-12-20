@@ -1,4 +1,5 @@
 import 'package:e07_mobile/donasi_buku/donasi_buku.dart';
+import 'package:e07_mobile/drawer/left_drawer.dart';
 import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
 import 'package:e07_mobile/katalog_buku/tambah_buku.dart';
 import 'package:e07_mobile/pinjam_buku/screens/katalog_pinjam_buku.dart';
@@ -60,7 +61,9 @@ class _BookCatalogState extends State<BookCatalog> {
           builder: (BuildContext context) {
             return IconButton(
               icon: Image.asset('asset/images/login_books.png'),
-              onPressed: () {},
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
           },
@@ -77,6 +80,7 @@ class _BookCatalogState extends State<BookCatalog> {
           ),
         ],
       ),
+      drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFF0B1F49),
       body: FutureBuilder(
         future: fetchBooks(request),

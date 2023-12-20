@@ -1,8 +1,8 @@
 import 'package:e07_mobile/authentication/register.dart';
+import 'package:e07_mobile/katalog_buku/katalog_buku.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:e07_mobile/request_buku/screens/main_request_buku.dart';
 import 'package:e07_mobile/request_buku/style/theme.dart';
 import 'package:e07_mobile/katalog_buku/models/userstatus.dart';
 
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const MainRequestBuku()),
+                                          const BookCatalog()),
                                 );
                               });
                               showDialog(
